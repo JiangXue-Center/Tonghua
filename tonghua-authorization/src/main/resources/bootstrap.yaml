@@ -1,0 +1,21 @@
+server:
+  port: 7777
+
+spring:
+  application:
+    name: tonghua-authorization
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: www.hf-hdb.cn:28848
+        namespace: 48347657-47ea-410a-97d8-8173ca97f0e5
+      config:
+        server-addr: www.hf-hdb.cn:28848
+        namespace: 48347657-47ea-410a-97d8-8173ca97f0e5
+        file-extension: yaml
+
+
+
+

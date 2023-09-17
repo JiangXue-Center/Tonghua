@@ -1,0 +1,22 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: user-platform
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: www.hf-hdb.cn:28848
+        namespace: 48347657-47ea-410a-97d8-8173ca97f0e5
+      config:
+        server-addr: www.hf-hdb.cn:28848
+        file-extension: yaml
+        namespace: 48347657-47ea-410a-97d8-8173ca97f0e5
+
+
+
+
+

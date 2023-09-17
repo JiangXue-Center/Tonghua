@@ -1,0 +1,20 @@
+server:
+  port: 7111
+
+spring:
+  application:
+    name: user-platform
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: www.hf-hdb.cn:28848
+#    nacos:
+#      server-addr: www.hf-hdb.cn:28848
+#      config:
+#        server-addr: www.hf-hdb.cn:28848
+
+
+
+
+
