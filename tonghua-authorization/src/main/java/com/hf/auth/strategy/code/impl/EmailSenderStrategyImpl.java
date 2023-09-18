@@ -19,13 +19,16 @@ public class EmailSenderStrategyImpl implements SendCodeStrategy {
     @Autowired
     private RedisService redisService;
 
+    @Autowired
+    private IMailService mailService;
+
     @Override
-    public void send(IMailService mailService, String to, String code, Integer method) {
+    public void send(String to, String code, Integer method) {
         System.out.println("打印邮件信息");
         String content = MessageFormat.format(LOGIN_EMAIL_CONTENT, code);
         mailService.sendSimpleMail(to, SUBJECT, content);
         StringBuilder builder = new StringBuilder();
-        builder.append(getKey(method, code));
+        builder.append(getKey(method));
         builder.append(to);
         String key = builder.toString();
         String jsonStr = JSONUtil.toJsonStr(code);
@@ -34,7 +37,7 @@ public class EmailSenderStrategyImpl implements SendCodeStrategy {
     }
 
 
-    private String getKey(Integer method, String code) {
+    private String getKey(Integer method) {
         String prefix = new String();
         if (method == METHOD_EMAIL_LOGIN) {
             prefix = LOGIN_EMAIL_CODE_KEY;

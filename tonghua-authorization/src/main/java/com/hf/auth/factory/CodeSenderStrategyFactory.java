@@ -33,9 +33,8 @@ public class CodeSenderStrategyFactory {
 
 
     private Boolean compare(Integer method, Integer[] enums) {
-        Comparator<Integer> comparator = (obj1, obj2) -> Integer.compare(obj1, obj1);
         for (Integer i : enums) {
-            if (comparator.compare(i, method) == 0) {
+            if (method == i) {
                 return true;
             }
         }

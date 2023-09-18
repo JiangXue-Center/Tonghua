@@ -19,6 +19,7 @@ public class EmailAndPasswordStrategy extends AbLoginStrategy
     public User loginStrategy(String email, String password) {
         //检查账号密码是否为空
         checkCertificateAndVerifyCodeIsNull(email, password);
+        isEmail(email);
         User user = remoteUserService.getUserInfoByEmail(email);
         //检查密码或验证码是否正确
         checkCertificateAndVerifyCodeIsEqual(password, user.getPassword());

@@ -3,16 +3,18 @@ server:
 
 spring:
   application:
-    name: user-platform
+    name: tonghua-gateway
   profiles:
     active: dev
   cloud:
     nacos:
-      server-addr: www.hf-hdb.cn:28848
-#    nacos:
-#      server-addr: www.hf-hdb.cn:28848
-#      config:
-#        server-addr: www.hf-hdb.cn:28848
+      discovery:
+        server-addr: www.hf-hdb.cn:28848
+        namespace: 48347657-47ea-410a-97d8-8173ca97f0e5
+      config:
+        server-addr: www.hf-hdb.cn:28848
+        file-extension: yaml
+        namespace: 48347657-47ea-410a-97d8-8173ca97f0e5
 
 
 

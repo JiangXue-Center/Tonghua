@@ -8,6 +8,7 @@ import com.hf.system.api.RemoteUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static com.hf.cache.constants.RedisConstant.LOGIN_PHONE_CODE_KEY;
 import static com.hf.cache.constants.RedisConstant.LOGIN_TOKEN_KEY;
 
 @Component
@@ -23,10 +24,11 @@ public class PhoneAndCodeStrategy extends AbLoginStrategy
     @Override
     public User loginStrategy(String phone, String verifyCode) {
         checkCertificateAndVerifyCodeIsNull(phone, verifyCode);
+        isPhone(phone);
         User user = remoteUserService.getUserInfoByPhone(phone);
         String str = String.valueOf(user.getId());
         StringBuilder builder = new StringBuilder();
-        builder.append(LOGIN_TOKEN_KEY);
+        builder.append(LOGIN_PHONE_CODE_KEY);
         builder.append(str);
         String code = redisService.getCacheObject(builder.toString());
         checkCertificateAndVerifyCodeIsEqual(verifyCode, code);

@@ -1,5 +1,8 @@
 package com.hf.core.model;
 
+
+import com.hf.core.enums.ExceptionEnums;
+
 import java.io.Serializable;
 
 import static com.hf.core.constant.Constants.FAIL;
@@ -55,6 +58,10 @@ public class Result<T> implements Serializable {
         return rest(null, code, data);
     }
 
+    public static <T> Result<T> fail(ExceptionEnums enums) {
+        return rest(enums.getMessage(), enums.getCode(), null);
+    }
+
     private static <T> Result<T> rest(String message, int code, T data) {
         Result<T> result = new Result<>();
         result.setMessage(message);
@@ -87,4 +94,5 @@ public class Result<T> implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
+
 }

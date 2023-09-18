@@ -25,6 +25,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static com.hf.auth.constants.EmailConstant.METHOD_EMAIL_LOGIN;
+import static com.hf.auth.constants.EmailConstant.METHOD_PHONE_LOGIN;
 import static com.hf.cache.constants.RedisConstant.*;
 
 @Service
@@ -38,9 +40,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private RedisService redisService;
-
-    @Autowired
-    private IMailService mailService;
 
     private static final ExecutorService EMAIL_POOL_EXECUTOR = Executors.newSingleThreadExecutor();
 
@@ -105,6 +104,28 @@ public class LoginServiceImpl implements LoginService {
         EMAIL_POOL_EXECUTOR.submit(new HandleSendCode(certificate, strategy, method));
     }
 
+    @Override
+    public Boolean checkCode(String certificate, Integer method, String code) {
+        if (StrUtil.hasBlank(code)) {
+            throw new RuntimeException("验证码不可为空");
+        }
+        StringBuilder builder = new StringBuilder();
+        if (method == METHOD_EMAIL_LOGIN) {
+            builder.append(LOGIN_EMAIL_CODE_KEY);
+        } else if(method == METHOD_PHONE_LOGIN) {
+            builder.append(LOGIN_PHONE_CODE_KEY);
+        } else {
+            throw new RuntimeException("注册方式有误");
+        }
+        builder.append(certificate);
+        String key = builder.toString();
+        String redisCode = redisService.getCacheObject(key);
+        if (!StrUtil.equals(code, redisCode)) {
+            throw new RuntimeException("验证码错误");
+        }
+        return true;
+    }
+
 
     private class HandleSendCode implements Runnable {
 
@@ -126,7 +147,7 @@ public class LoginServiceImpl implements LoginService {
         public void run() {
             System.out.println("打印线程池信息");
             String code = RandomUtil.randomNumbers(6);
-            sender.send(mailService, account, code, method);
+            sender.send(account, code, method);
         }
     }
 }

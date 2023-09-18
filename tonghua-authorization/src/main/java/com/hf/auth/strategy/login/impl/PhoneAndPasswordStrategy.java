@@ -18,6 +18,7 @@ public class PhoneAndPasswordStrategy extends AbLoginStrategy
     @Override
     public User loginStrategy(String phone, String password) {
         checkCertificateAndVerifyCodeIsNull(phone, password);
+        isPhone(phone);
         User user = remoteUserService.getUserInfoByPhone(phone);
         String userPassword = user.getPassword();
         checkCertificateAndVerifyCodeIsEqual(userPassword, password);

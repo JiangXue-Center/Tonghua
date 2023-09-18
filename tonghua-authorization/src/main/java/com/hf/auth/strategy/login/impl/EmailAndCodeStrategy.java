@@ -23,6 +23,7 @@ public class EmailAndCodeStrategy extends AbLoginStrategy
     @Override
     public User loginStrategy(String email, String verifyCode) {
         checkCertificateAndVerifyCodeIsNull(email, verifyCode);
+        isEmail(email);
         User user = remoteUserService.getUserInfoByEmail(email);
         StringBuilder builder = new StringBuilder();
         builder.append(LOGIN_EMAIL_CODE_KEY);

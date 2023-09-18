@@ -12,4 +12,5 @@ public interface LoginService {
 
     void sendCode(String certificate, Integer method);
 
+    Boolean checkCode(String certificate, Integer method, String code);
 }
