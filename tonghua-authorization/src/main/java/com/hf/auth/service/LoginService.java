@@ -8,9 +8,9 @@ public interface LoginService {
 
     String login(LoginDTO loginDTO);
 
-    Boolean register(RegisterDTO registerDTO);
+    String register(RegisterDTO registerDTO);
 
     void sendCode(String certificate, Integer method);
 
-    Boolean checkCode(String certificate, Integer method, String code);
+    String checkCode(String certificate, Integer method, String code);
 }

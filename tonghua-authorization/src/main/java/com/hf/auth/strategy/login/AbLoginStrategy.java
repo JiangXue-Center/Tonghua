@@ -1,9 +1,11 @@
 package com.hf.auth.strategy.login;
 
-import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
+import com.hf.core.exception.AuthException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.hf.core.enums.ExceptionEnums.ACCOUNT_PASSWORD_ERROR;
 
 public abstract class AbLoginStrategy {
 
@@ -17,23 +19,10 @@ public abstract class AbLoginStrategy {
     }
 
     protected void checkCertificateAndVerifyCodeIsEqual(String verifyCode, String password) {
-        if (!StrUtil.equals(verifyCode, password)) {
-            throw new RuntimeException("账号或登录凭证错误");
+        if(!StrUtil.equals(verifyCode, password)) {
+            throw new AuthException(ACCOUNT_PASSWORD_ERROR);
         }
     }
 
-    protected void isEmail(String email) {
-        boolean isValidEmail = ReUtil.isMatch("^[\\w\\.-]+@[a-zA-Z\\d\\.-]+\\.[a-zA-Z]{2,}$", email);
-        if (!isValidEmail) {
-            logger.error("非正确邮箱格式");
-        }
-    }
-
-    protected void isPhone(String phone) {
-        boolean isValidPhoneNumber = ReUtil.isMatch("1[3456789]\\d{9}", phone);
-        if (!isValidPhoneNumber) {
-            logger.error("非正确手机号格式");
-        }
-    }
 
 }

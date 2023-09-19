@@ -1,6 +1,6 @@
 package com.hf.userplatform.mapper;
 
-import com.hf.userplatform.model.entity.User;
+import com.hf.core.model.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

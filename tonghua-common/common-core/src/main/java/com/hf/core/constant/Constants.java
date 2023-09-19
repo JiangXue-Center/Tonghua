@@ -7,6 +7,13 @@ package com.hf.core.constant;
  */
 public class Constants
 {
+
+    public final static String ACCESS_TOKEN = "Authorization";
+
+    public static final String REGISTER_TOKEN = "register_token";
+
+
+
     /**
      * UTF-8 字符集
      */
@@ -127,4 +134,6 @@ public class Constants
      */
     public static final String[] JOB_ERROR_STR = { "java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
             "org.springframework", "org.apache", "com.ruoyi.common.core.utils.file" };
+
+
 }

@@ -1,8 +1,8 @@
 package com.hf.userplatform.controller;
 
 
-import com.hf.core.model.dto.RegisterDTO;
-import com.hf.userplatform.model.entity.User;
+import com.hf.core.model.Result;
+import com.hf.core.model.entity.User;
 import com.hf.userplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +32,11 @@ public class UserController {
         return b;
     }
 
+    @PutMapping("/email/{email}")
+    public Result<Boolean> bindEmail(@PathVariable("email") String email) {
+        userService.bindEmail(email);
+        return null;
+    }
 
 
 }

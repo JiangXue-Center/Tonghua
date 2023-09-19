@@ -22,12 +22,10 @@ public class Result<T> implements Serializable {
         return rest(null, SUCCESS, null);
     }
 
-    public static <T> Result<T> success(String message) {
-        return rest(message, SUCCESS, null);
-    }
+
 
     public static <T> Result<T> success(T data) {
-        return rest(null, SUCCESS, data);
+        return rest("OK", SUCCESS, data);
     }
 
     public static <T> Result<T> success(String message, T data) {
@@ -42,9 +40,6 @@ public class Result<T> implements Serializable {
         return rest(message, FAIL, null);
     }
 
-    public static <T> Result<T> fail(T data) {
-        return rest(null, FAIL, data);
-    }
 
     public static <T> Result<T> fail(int code) {
         return rest(null, code, null);

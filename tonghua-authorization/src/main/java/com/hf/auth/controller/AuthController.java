@@ -1,7 +1,5 @@
 package com.hf.auth.controller;
 
-import cn.hutool.core.util.StrUtil;
-import com.hf.auth.exception.exception.TokenGenerateException;
 import com.hf.auth.service.LoginService;
 import com.hf.core.model.Result;
 import com.hf.core.model.dto.LoginDTO;
@@ -9,8 +7,18 @@ import com.hf.core.model.dto.RegisterDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.hf.auth.constants.Constant.REGISTER_RESULT;
+import static com.hf.core.constant.Constants.ACCESS_TOKEN;
+import static com.hf.core.constant.Constants.REGISTER_TOKEN;
+
 
 @RestController
 public class AuthController {
@@ -21,20 +29,22 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @PostMapping("/login")
-    public Result<String> login(@Validated @RequestBody LoginDTO loginDTO) {
+    public Result<Map<String, String>> login(@RequestBody LoginDTO loginDTO) {
         logger.info("auth: 登录接口(login)请求体 {}", loginDTO);
         String token = loginService.login(loginDTO);
-        if (StrUtil.hasBlank(token)) {
-            logger.error("生成token失败");
-            throw new TokenGenerateException();
-        }
-        return Result.success(token);
+
+        Map<String, String> map = new HashMap<>();
+        map.put(ACCESS_TOKEN, token);
+        return Result.success(map);
     }
 
     @PostMapping("/register")
-    public Result<Boolean> register(@Validated @RequestBody RegisterDTO registerDTO) {
-        Boolean b = loginService.register(registerDTO);
-        return Result.success(b);
+    public Result<Map<String, String>> register(@RequestBody RegisterDTO registerDTO) {
+        logger.info("auth: 注册接口(register)请求体 {}", registerDTO);
+        String str = loginService.register(registerDTO);
+        Map<String, String> map = new HashMap<>();
+        map.put(REGISTER_RESULT, str);
+        return Result.success(map);
     }
 
     //1-登录注册邮箱验证码  2-绑定邮箱验证码  3-登录注册手机验证码
@@ -45,11 +55,15 @@ public class AuthController {
         loginService.sendCode(certificate, method);
     }
 
-    @GetMapping("/check")
-    public Result<Boolean> check(@RequestParam String certificate,
-                                 @RequestParam Integer method,
-                                 @RequestParam String code) {
-        Boolean b = loginService.checkCode(certificate, method, code);
-        return Result.success(b);
+    @PostMapping("/check")
+    public Result<Map<String, String>> check(@RequestParam String certificate,
+                                             @RequestParam Integer method,
+                                             @RequestParam String code) {
+        String registerToken = loginService.checkCode(certificate, method, code);
+        //todo 返回一个凭证 token
+        Map<String, String> map = new HashMap<>();
+        map.put(REGISTER_TOKEN, registerToken);
+        return Result.success(map);
     }
+
 }

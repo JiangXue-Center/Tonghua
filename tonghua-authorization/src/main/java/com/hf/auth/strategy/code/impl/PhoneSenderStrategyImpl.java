@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.hf.auth.constants.EmailConstant.*;
+import static com.hf.auth.constants.Constant.*;
 import static com.hf.cache.constants.RedisConstant.*;
 
 @Component

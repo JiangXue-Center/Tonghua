@@ -20,6 +20,10 @@ public interface RedisConstant {
 
     public static final Long LOGIN_CODE_TTL = 300L;
 
+    public static final String REGISTER_EMAIL_TOKEN_KEY = "register:email:token:";
+
+    public static final String REGISTER_PHONE_TOKEN_KEY = "register:phone:token:";
+
 
 
 }

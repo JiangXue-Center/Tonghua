@@ -1,6 +1,5 @@
 package com.hf.auth.factory;
 
-import cn.hutool.core.util.NumberUtil;
 import com.hf.auth.enums.CodeSenderEnum;
 import com.hf.auth.strategy.code.SendCodeStrategy;
 import com.hf.auth.strategy.code.impl.EmailSenderStrategyImpl;
@@ -9,9 +8,7 @@ import com.hf.core.utils.SpringBeanContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
-
-import static com.hf.auth.constants.EmailConstant.*;
+import static com.hf.auth.constants.Constant.*;
 
 @Component
 public class CodeSenderStrategyFactory {

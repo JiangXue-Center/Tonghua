@@ -10,7 +10,12 @@ public class User implements Serializable {
     /**
      * 用户ID
      */
-    private Integer id;
+    private String id;
+
+    /**
+     * 用户A_ID
+     */
+    private Integer aId;
 
     /**
      * 手机号
@@ -21,6 +26,12 @@ public class User implements Serializable {
      * 邮箱
      */
     private String email;
+
+
+    /**
+     * 盐值
+     */
+    private String salt;
 
     /**
      * 密码
@@ -55,15 +66,15 @@ public class User implements Serializable {
     /**
      * 删除状态 (0 表示未删除，1 表示已删除)
      */
-    private int delete;
+    private Integer deleted;
 
     // Getter and Setter methods for each field
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -131,11 +142,28 @@ public class User implements Serializable {
         this.gtmModify = gtmModify;
     }
 
-    public int getDelete() {
-        return delete;
+    public Integer getDeleted() {
+        return deleted;
     }
 
-    public void setDelete(int delete) {
-        this.delete = delete;
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public Integer getaId() {
+        return aId;
+    }
+
+    public void setaId(Integer aId) {
+        this.aId = aId;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
 }

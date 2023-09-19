@@ -51,7 +51,7 @@ public class Works implements Serializable {
     /**
      * 删除状态 (0 表示未删除，1 表示已删除)
      */
-    private int delete;
+    private int deleted;
 
     // Getter and Setter methods for each field
 
@@ -119,11 +119,11 @@ public class Works implements Serializable {
         this.gtmModify = gtmModify;
     }
 
-    public int getDelete() {
-        return delete;
+    public int getDeleted() {
+        return deleted;
     }
 
-    public void setDelete(int delete) {
-        this.delete = delete;
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
     }
 }
