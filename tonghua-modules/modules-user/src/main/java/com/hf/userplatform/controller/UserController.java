@@ -7,6 +7,8 @@ import com.hf.userplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -33,9 +35,16 @@ public class UserController {
     }
 
     @PutMapping("/email/{email}")
-    public Result<Boolean> bindEmail(@PathVariable("email") String email) {
-        userService.bindEmail(email);
-        return null;
+    public Result<Map<String, String>> bindEmail(@PathVariable("email") String email,
+                                                 @RequestParam String code) {
+        return Result.success(userService.bindEmail(email, code));
+    }
+
+    @PutMapping("/phone/{phone}")
+    public Result<Map<String, String>> bindPhone(@PathVariable("phone") String phone,
+                                                 @RequestParam String code) {
+        Map<String, String> map = userService.bindPhone(phone, code);
+        return Result.success(map);
     }
 
 

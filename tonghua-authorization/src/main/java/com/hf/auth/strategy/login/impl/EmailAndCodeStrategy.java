@@ -33,7 +33,7 @@ public class EmailAndCodeStrategy extends AbLoginStrategy
         builder.append(LOGIN_EMAIL_CODE_KEY);
         builder.append(email);
         String code = redisService.getCacheObject(builder.toString());
-        checkCertificateAndVerifyCodeIsEqual(verifyCode, code);
+        checkVerifyCodeAndCodeIsEqual(verifyCode, code);
         return user;
     }
 

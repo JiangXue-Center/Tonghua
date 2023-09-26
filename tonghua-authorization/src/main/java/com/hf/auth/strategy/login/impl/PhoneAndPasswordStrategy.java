@@ -28,7 +28,7 @@ public class PhoneAndPasswordStrategy extends AbLoginStrategy
         String userPassword = user.getPassword();
         String salt = user.getSalt();
         String hashedPassword = EncryptionUtil.encryptionPassword(password, salt);
-        checkCertificateAndVerifyCodeIsEqual(hashedPassword, userPassword);
+        checkVerifyCodeAndPasswordIsEqual(hashedPassword, userPassword);
         return user;
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(contextId = "remoteUserService", value = "user-platform")
+@FeignClient(contextId = "remoteUserService", value = "module-userplatform")
 public interface RemoteUserService {
 
     @GetMapping("/user/phone/{phone}")

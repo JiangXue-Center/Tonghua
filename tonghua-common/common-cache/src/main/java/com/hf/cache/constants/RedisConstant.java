@@ -18,7 +18,7 @@ public interface RedisConstant {
 
     public static final String FIND_OUT_PHONE_CODE_KEY = "phone:findout:code";
 
-    public static final Long LOGIN_CODE_TTL = 300L;
+    public static final Long LOGIN_CODE_TTL = 30L;
 
     public static final String REGISTER_EMAIL_TOKEN_KEY = "register:email:token:";
 

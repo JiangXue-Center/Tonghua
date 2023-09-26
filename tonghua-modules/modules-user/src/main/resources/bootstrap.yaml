@@ -3,18 +3,18 @@ server:
 
 spring:
   application:
-    name: user-platform
+    name: module-userplatform
   profiles:
     active: dev
   cloud:
     nacos:
       discovery:
         server-addr: www.hf-hdb.cn:28848
-        namespace: 48347657-47ea-410a-97d8-8173ca97f0e5
+        namespace: f73e81a9-f1aa-4456-84c8-981ea8cb7756
       config:
         server-addr: www.hf-hdb.cn:28848
         file-extension: yaml
-        namespace: 48347657-47ea-410a-97d8-8173ca97f0e5
+        namespace: f73e81a9-f1aa-4456-84c8-981ea8cb7756
 
 
 

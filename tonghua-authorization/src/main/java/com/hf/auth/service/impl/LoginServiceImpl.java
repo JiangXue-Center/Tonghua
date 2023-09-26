@@ -77,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
         //构造一个tokenKey
         String tokenKey = builder.toString();
         //存入redis
-        redisService.setCacheObject(tokenKey, token, LOGIN_TOKEN_TTL, TimeUnit.SECONDS);
+        redisService.setCacheObject(tokenKey, token, LOGIN_TOKEN_TTL, TimeUnit.HOURS);
 
         return token;
     }
@@ -169,7 +169,7 @@ public class LoginServiceImpl implements LoginService {
         }
         String registerToken = UUID.randomUUID().toString();
         String tokenKey = tokenBuilder.toString();
-        redisService.setCacheObject(tokenKey, registerToken, LOGIN_CODE_TTL, TimeUnit.SECONDS);
+        redisService.setCacheObject(tokenKey, registerToken, LOGIN_CODE_TTL, TimeUnit.MINUTES);
 
         return registerToken;
     }

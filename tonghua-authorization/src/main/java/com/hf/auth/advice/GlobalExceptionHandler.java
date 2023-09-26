@@ -1,5 +1,6 @@
 package com.hf.auth.advice;
 
+import com.hf.core.exception.AuthException;
 import com.hf.core.exception.TokenGenerateException;
 import com.hf.core.model.Result;
 import org.slf4j.Logger;
@@ -29,6 +30,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Result> tokenGenerateExceptionHandler(HttpServletRequest req, TokenGenerateException e) {
         logger.error("token生成失败: ", e);
         return new ResponseEntity<>(Result.fail(TOKEN_GENARATE_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(AuthException.class)
+    public ResponseEntity<Result> authExceptionHandler(HttpServletRequest req, AuthException e) {
+        logger.error("登录失败", e);
+        return new ResponseEntity<>(Result.fail("登录失败"), HttpStatus.BAD_REQUEST);
     }
 
 }

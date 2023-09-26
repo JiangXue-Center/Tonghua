@@ -1,22 +1,24 @@
-package com.hf.userplatform.model.entity;
+package com.hf.core.model.entity;
+
+import cn.hutool.log.Log;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class Works implements Serializable {
+public class Artwork implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 作品ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 作者（用户ID）
      */
-    private Integer author;
+    private String author;
 
     /**
      * 文案
@@ -55,19 +57,19 @@ public class Works implements Serializable {
 
     // Getter and Setter methods for each field
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Integer author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 

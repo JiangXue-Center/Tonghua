@@ -4,7 +4,9 @@ import cn.hutool.core.util.StrUtil;
 import com.hf.core.exception.AuthException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.security.util.Password;
 
+import static com.hf.core.enums.ExceptionEnums.ACCOUNT_CODE_ERROR;
 import static com.hf.core.enums.ExceptionEnums.ACCOUNT_PASSWORD_ERROR;
 
 public abstract class AbLoginStrategy {
@@ -18,8 +20,14 @@ public abstract class AbLoginStrategy {
         }
     }
 
-    protected void checkCertificateAndVerifyCodeIsEqual(String verifyCode, String password) {
-        if(!StrUtil.equals(verifyCode, password)) {
+    protected void checkVerifyCodeAndCodeIsEqual(String verifyCode, String code) {
+        if(!StrUtil.equals(verifyCode, code)) {
+            throw new AuthException(ACCOUNT_CODE_ERROR);
+        }
+    }
+
+    protected void checkVerifyCodeAndPasswordIsEqual(String verifyCode, String password) {
+        if (!StrUtil.equals(verifyCode, password)) {
             throw new AuthException(ACCOUNT_PASSWORD_ERROR);
         }
     }

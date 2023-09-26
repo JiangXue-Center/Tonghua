@@ -29,12 +29,11 @@ public class PhoneAndCodeStrategy extends AbLoginStrategy
             throw new PhoneFormatException();
         }
         User user = remoteUserService.getUserInfoByPhone(phone);
-        String str = String.valueOf(user.getId());
         StringBuilder builder = new StringBuilder();
         builder.append(LOGIN_PHONE_CODE_KEY);
-        builder.append(str);
+        builder.append(phone);
         String code = redisService.getCacheObject(builder.toString());
-        checkCertificateAndVerifyCodeIsEqual(verifyCode, code);
+        checkVerifyCodeAndCodeIsEqual(verifyCode, code);
         return user;
     }
 

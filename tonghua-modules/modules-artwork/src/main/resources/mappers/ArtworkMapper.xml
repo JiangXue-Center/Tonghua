@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hf.artwork.mapper.ArtworkMapper">
+
+    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.Artwork">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="caption" column="caption" jdbcType="VARCHAR"/>
+        <result property="imageCollection" column="image_collection" jdbcType="VARCHAR"/>
+        <result property="tags" column="tags" jdbcType="VARCHAR"/>
+        <result property="publishTime" column="publish_time" jdbcType="DATE"/>
+        <result property="gtmCreate" column="gtm_create" jdbcType="DATE"/>
+        <result property="gtmModify" column="gtm_modify" jdbcType="DATE"/>
+        <result property="deleted" column="deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="artworkVO" type="com.hf.artwork.model.vo.ArtworkVO">
+        <result property="id" column="artwork_id" jdbcType="BIGINT"/>
+        <result property="authorId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="authorAvatar" column="avatar_url" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="caption" column="caption" jdbcType="VARCHAR"/>
+        <result property="publishTime" column="publish_time" jdbcType="DATE"/>
+        <result property="tags" column="tags" typeHandler="com.hf.artwork.handler.StringListTypeHandler"/>
+        <result property="imageCollection" column="image_collection" typeHandler="com.hf.artwork.handler.StringListTypeHandler"/>
+    </resultMap>
+
+    <resultMap id="artworkIndex" type="com.hf.artwork.model.vo.ArtworkIndex">
+        <result property="id" column="artwork_id" jdbcType="BIGINT"/>
+        <result property="authorId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="authorAvatar" column="avatar_url" jdbcType="VARCHAR"/>
+        <result property="indexLink" column="image_collection" typeHandler="com.hf.artwork.handler.FirstWordTypeHandler"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, author, caption, image_collection, tags,
+          publish_time, gtm_create, gtm_modify, deleted
+    </sql>
+    <select id="selectById" resultType="com.hf.core.model.entity.Artwork">
+        <![CDATA[
+        select id, author, caption, image_collection, tags,
+               publish_time, gtm_create, gtm_modify
+        from artwork
+        where deleted <> 1
+        and id = #{id}
+        ]]>
+    </select>
+    <select id="selectArtworks" resultType="com.hf.core.model.entity.Artwork">
+        <![CDATA[
+        select id, author, caption, image_collection, tags,
+               publish_time, gtm_create, gtm_modify
+        from artwork
+        where deleted <> 1
+        and (caption like #{keywork} or tags like #{keyword})
+        ]]>
+    </select>
+
+    <select id="selectArtworkVoById" resultMap="artworkVO">
+        <![CDATA[
+        SELECT
+            aw.id AS artwork_id,
+            aw.caption,
+            aw.tags,
+            aw.image_collection,
+            aw.publish_time,
+            aw.author AS user_id,
+            u.avatar_url,
+            u.username
+        FROM artwork aw
+                 JOIN user u ON aw.author = u.id
+        WHERE aw.id = #{id}
+        AND aw.deleted <> 1
+        AND u.deleted <> 1
+        ]]>
+    </select>
+    <select id="selectIndexByKeyword" resultMap="artworkIndex">
+        <![CDATA[
+        SELECT
+            aw.id AS artwork_id,
+            aw.image_collection,
+            aw.author AS user_id,
+            u.avatar_url,
+            u.username
+        FROM artwork aw
+                JOIN  user u ON aw.author = u.id
+        WHERE aw.caption LIKE CONCAT('%', #{keyword}, '%')
+        OR aw.tags LIKE CONCAT('%', #{keyword}, '%')
+        AND aw.deleted <> 1
+        AND u.deleted <> 1
+        ]]>
+    </select>
+
+    <select id="selectIndexByIds" resultMap="artworkIndex">
+        SELECT
+            aw.id AS artwork_id,
+            aw.image_collection,
+            aw.author AS user_id,
+            u.avatar_url,
+            u.username
+        FROM artwork aw
+                 JOIN  user u ON aw.author = u.id
+        WHERE aw.id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        <![CDATA[
+        AND aw.deleted <> 1
+        AND u.deleted <> 1
+        ]]>
+    </select>
+
+
+</mapper>

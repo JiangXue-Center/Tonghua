@@ -43,13 +43,22 @@
           and phone_number = #{phone}
         ]]>
     </select>
+    <select id="selectByPhoneOrEmail" resultType="java.lang.String">
+        select id from user where phone_number = #{phone}
+        or email = #{email}
+    </select>
 
     <insert id="register">
         insert into user(id, phone_number, email, salt, password, username)
         values (#{id}, #{phoneNumber}, #{email}, #{salt}, #{password}, #{username})
     </insert>
 
-
+    <update id="bindEmail">
+        update user set(email = #{email}) where id = #{id}
+    </update>
+    <update id="bindPhone">
+        update user set(phone = #{phone}) where id = #{id}
+    </update>
 
 
 </mapper>

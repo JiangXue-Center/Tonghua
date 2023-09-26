@@ -15,6 +15,7 @@
         <module>common-datasource</module>
         <module>common-cache</module>
         <module>common-core</module>
+        <module>common-minio</module>
     </modules>
 
     <properties>

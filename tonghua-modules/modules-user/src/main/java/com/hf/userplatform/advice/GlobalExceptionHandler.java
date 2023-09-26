@@ -1,5 +1,6 @@
-package com.hf.userplatform;
+package com.hf.userplatform.advice;
 
+import com.hf.core.exception.BindException;
 import com.hf.core.exception.EmailFormatException;
 import com.hf.core.exception.TokenGenerateException;
 import com.hf.core.model.Result;
@@ -8,13 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.hf.core.enums.ExceptionEnums.EMAIL_FORMAT_ERROR;
-import static com.hf.core.enums.ExceptionEnums.TOKEN_GENARATE_ERROR;
+import static com.hf.core.enums.ExceptionEnums.*;
 
 
 @RestControllerAdvice
@@ -27,16 +26,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(Result.fail(""), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(TokenGenerateException.class)
-    public ResponseEntity<Result> tokenGenerateExceptionHandler(HttpServletRequest req, TokenGenerateException e) {
-        logger.error("token生成失败: ", e);
-        return new ResponseEntity<>(Result.fail(TOKEN_GENARATE_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
     @ExceptionHandler(EmailFormatException.class)
     public ResponseEntity<Result> emailFormatExceptionHandler(HttpServletRequest req, EmailFormatException e) {
         logger.error("email格式错误:", e);
         return new ResponseEntity<>(Result.fail(EMAIL_FORMAT_ERROR), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity<Result> bindEmailExceptionHandler(HttpServletRequest req, BindException e) {
+        logger.error("绑定邮箱失败", e);
+        return new ResponseEntity<>(Result.fail(BIND_EMAIL_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

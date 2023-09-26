@@ -1,0 +1,7 @@
+minio:
+  endpoint: http://47.115.219.241:9000
+  access-Key: GGVjOjep4X2XRQWu
+  secret-Key: ck21llm5zicEY7q8HNH7iY5EEIVReuhM
+  bucket-Name: tonghua-artwork
+
+

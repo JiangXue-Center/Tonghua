@@ -32,7 +32,7 @@ public class EmailSenderStrategyImpl implements SendCodeStrategy {
         builder.append(to);
         String key = builder.toString();
         String jsonStr = JSONUtil.toJsonStr(code);
-        redisService.setCacheObject(key, jsonStr, LOGIN_CODE_TTL, TimeUnit.SECONDS);
+        redisService.setCacheObject(key, jsonStr, LOGIN_CODE_TTL, TimeUnit.MINUTES);
         System.out.println("完成发送邮件");
     }
 

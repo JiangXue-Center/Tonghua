@@ -12,4 +12,12 @@ public interface UserMapper {
 
     Integer register(User user);
 
+    Integer bindEmail(String email, String id);
+
+    Integer bindPhone(String phone, String id);
+
+    String selectByPhoneOrEmail(String phone, String email);
+
+
+
 }
