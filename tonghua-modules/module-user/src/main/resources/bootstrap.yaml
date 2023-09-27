@@ -1,11 +1,14 @@
 server:
-  port: 7111
+  port: 8000
 
 spring:
   application:
-    name: tonghua-gateway
+    name: module-userplatform
   profiles:
     active: prod
+
+
+
 
 
 

@@ -5,20 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.hf</groupId>
-        <artifactId>Tonghua</artifactId>
+        <artifactId>tonghua-modules</artifactId>
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>tonghua-modules</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>module-payment</module>
-        <module>module-user</module>
-        <module>module-painting</module>
-        <module>module-order</module>
-        <module>module-artwork</module>
-        <module>module-shopping</module>
-    </modules>
+    <artifactId>module-order</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

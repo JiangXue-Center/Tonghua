@@ -1,0 +1,12 @@
+server:
+  port: 7999
+
+spring:
+  application:
+    name: module-artwork
+  profiles:
+    active: prod
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB

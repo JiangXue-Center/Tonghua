@@ -79,7 +79,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
                     if (!StrUtil.equals(accessToken, redisToken)) {
                         return this.buildLoginResponse(exchange);
                     }
-                    redisService.expire(key, LOGIN_TOKEN_TTL, TimeUnit.SECONDS);
+                    redisService.expire(key, LOGIN_TOKEN_TTL, TimeUnit.HOURS);
                     return chain.filter(exchange);
                 });
     }
