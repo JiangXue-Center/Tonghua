@@ -2,4 +2,4 @@ spring:
   application:
     name: module-shopping
   profiles:
-    active: dev
+    active: prod

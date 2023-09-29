@@ -1,4 +1,4 @@
-package com.hf.artwork.handler;
+package com.hf.data.handler;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;

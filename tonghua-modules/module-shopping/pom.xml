@@ -29,6 +29,12 @@
             <artifactId>common-cache</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.hf</groupId>
+            <artifactId>common-datasource</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -38,9 +44,10 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
     </dependencies>

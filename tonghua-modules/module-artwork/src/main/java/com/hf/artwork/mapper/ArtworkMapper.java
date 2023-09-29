@@ -14,7 +14,7 @@ public interface ArtworkMapper {
 
     Artwork selectById(Integer id);
 
-    List<Artwork> selectArtworks(String keyword);
+//    List<Artwork> selectArtworks(String keyword);
 
     List<ArtworkIndex> selectIndexByKeyword(String keyword);
 

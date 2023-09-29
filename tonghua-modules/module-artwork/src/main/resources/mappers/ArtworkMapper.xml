@@ -23,8 +23,8 @@
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="caption" column="caption" jdbcType="VARCHAR"/>
         <result property="publishTime" column="publish_time" jdbcType="DATE"/>
-        <result property="tags" column="tags" typeHandler="com.hf.artwork.handler.StringListTypeHandler"/>
-        <result property="imageCollection" column="image_collection" typeHandler="com.hf.artwork.handler.StringListTypeHandler"/>
+        <result property="tags" column="tags" typeHandler="com.hf.data.handler.StringListTypeHandler"/>
+        <result property="imageCollection" column="image_collection" typeHandler="com.hf.data.handler.StringListTypeHandler"/>
     </resultMap>
 
     <resultMap id="artworkIndex" type="com.hf.artwork.model.vo.ArtworkIndex">
@@ -32,7 +32,7 @@
         <result property="authorId" column="user_id" jdbcType="VARCHAR"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="authorAvatar" column="avatar_url" jdbcType="VARCHAR"/>
-        <result property="indexLink" column="image_collection" typeHandler="com.hf.artwork.handler.FirstWordTypeHandler"/>
+        <result property="indexLink" column="image_collection" typeHandler="com.hf.data.handler.FirstWordTypeHandler"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -54,15 +54,16 @@
 
 
 
-    <select id="selectArtworks" resultType="com.hf.core.model.entity.Artwork">
-        <![CDATA[
-        select id, author, caption, image_collection, tags,
-               publish_time, gtm_create, gtm_modify
-        from artwork
-        where deleted <> 1
-        and (caption like #{keywork} or tags like #{keyword})
-        ]]>
-    </select>
+<!--    <select id="selectArtworks" resultType="com.hf.core.model.entity.Artwork">-->
+<!--        <![CDATA[-->
+<!--        select id, author, caption, image_collection, tags,-->
+<!--               publish_time, gtm_create, gtm_modify-->
+<!--        from artwork-->
+<!--        where deleted <> 1-->
+<!--        and (caption like CONCAT('%', #{keywork}, '%') -->
+<!--        or tags like #{keyword})-->
+<!--        ]]>-->
+<!--    </select>-->
 
     <select id="selectArtworkVoById" resultMap="artworkVO">
         <![CDATA[
@@ -82,6 +83,7 @@
         AND u.deleted <> 1
         ]]>
     </select>
+
     <select id="selectIndexByKeyword" resultMap="artworkIndex">
         <![CDATA[
         SELECT
@@ -117,6 +119,7 @@
         AND u.deleted <> 1
         ]]>
     </select>
+
     <select id="selectAllByIdList" resultType="com.hf.core.model.entity.Artwork">
         SELECT * from artwork where id > #{id}
     </select>

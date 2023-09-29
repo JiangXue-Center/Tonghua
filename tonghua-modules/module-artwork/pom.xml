@@ -26,6 +26,12 @@
         </dependency>
         <dependency>
             <groupId>com.hf</groupId>
+            <artifactId>common-datasource</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hf</groupId>
             <artifactId>common-minio</artifactId>
             <version>0.0.1</version>
         </dependency>
@@ -38,8 +44,6 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -56,14 +60,7 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
+
 
 
     </dependencies>

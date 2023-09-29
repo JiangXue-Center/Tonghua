@@ -11,7 +11,7 @@ public class SpuProduct {
     /**
      * 产品名称
      */
-    private String name;
+    private String spuName;
 
     /**
      * 产品标题
@@ -61,12 +61,12 @@ public class SpuProduct {
         this.spuId = spuId;
     }
 
-    public String getName() {
-        return name;
+    public String getSpuName() {
+        return spuName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSpuName(String spuName) {
+        this.spuName = spuName;
     }
 
     public String getTitle() {
@@ -137,7 +137,7 @@ public class SpuProduct {
     public String toString() {
         return "SpuProduct{" +
                 "spuId=" + spuId +
-                ", name='" + name + '\'' +
+                ", spuName='" + spuName + '\'' +
                 ", title='" + title + '\'' +
                 ", categoryId=" + categoryId +
                 ", status=" + status +
