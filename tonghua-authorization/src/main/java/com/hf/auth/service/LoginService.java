@@ -1,7 +1,6 @@
 package com.hf.auth.service;
 
 import com.hf.core.model.dto.RegisterDTO;
-import com.hf.core.model.entity.User;
 import com.hf.core.model.dto.LoginDTO;
 
 public interface LoginService {

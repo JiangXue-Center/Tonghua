@@ -17,7 +17,7 @@
         <module>module-painting</module>
         <module>module-order</module>
         <module>module-artwork</module>
-        <module>module-shopping</module>
+        <module>module-inventory-system</module>
     </modules>
 
     <properties>

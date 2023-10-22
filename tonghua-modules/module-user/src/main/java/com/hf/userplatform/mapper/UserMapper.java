@@ -1,6 +1,6 @@
 package com.hf.userplatform.mapper;
 
-import com.hf.core.model.entity.User;
+import com.hf.core.model.entity.user.User;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -10,11 +10,11 @@ public interface UserMapper {
 
     User selectByPhoneNumberUser(String phone);
 
-    Integer register(User user);
+    int register(User user);
 
-    Integer bindEmail(String email, String id);
+    int bindEmail(String email, String id);
 
-    Integer bindPhone(String phone, String id);
+    int bindPhone(String phone, String id);
 
     String selectByPhoneOrEmail(String phone, String email);
 

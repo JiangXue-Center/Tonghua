@@ -30,7 +30,7 @@ import static com.hf.minio.constant.MinIOConstant.ARTWORK_FOLDER;
 public class MinIOService {
 
     @Autowired
-    private MinIOConfig minIOConfig;
+    private MinIOConfig minIOCnfig;
 
     @Autowired
     private MinioClient minioClient;
@@ -123,6 +123,14 @@ public class MinIOService {
 
     public String path2Link(String path) {
         return this.generateNewSignedUrl(ARTWORK_BUCKET_NAME, ARTWORK_FOLDER, path);
+    }
+
+    public String path2Link(String path, String bucketName) {
+        return this.generateNewSignedUrl(bucketName, null, path);
+    }
+
+    public String path2Link(String path,String bucketName, String folder) {
+        return this.generateNewSignedUrl(bucketName, folder, path);
     }
 
     public String generatePresignedUrl(String bucketName, String objectName) {

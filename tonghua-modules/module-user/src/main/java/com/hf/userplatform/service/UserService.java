@@ -1,8 +1,6 @@
 package com.hf.userplatform.service;
 
-import com.hf.core.model.Result;
-import com.hf.core.model.dto.RegisterDTO;
-import com.hf.core.model.entity.User;
+import com.hf.core.model.entity.user.User;
 
 import java.util.Map;
 

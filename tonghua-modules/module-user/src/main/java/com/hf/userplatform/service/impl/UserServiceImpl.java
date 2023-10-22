@@ -1,13 +1,12 @@
 package com.hf.userplatform.service.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.nacos.shaded.org.checkerframework.checker.units.qual.A;
 import com.hf.cache.service.RedisService;
 import com.hf.core.exception.AuthException;
 import com.hf.core.exception.BindException;
 import com.hf.core.exception.EmailFormatException;
 import com.hf.core.exception.PhoneFormatException;
-import com.hf.core.model.entity.User;
+import com.hf.core.model.entity.user.User;
 import com.hf.core.utils.PatternUtil;
 import com.hf.userplatform.mapper.UserMapper;
 import com.hf.userplatform.service.UserService;
@@ -20,7 +19,6 @@ import java.util.Map;
 
 import static com.hf.cache.constants.RedisConstant.BIND_EMAIL_CODE_KEY;
 import static com.hf.cache.constants.RedisConstant.BIND_PHONE_CODE_KEY;
-import static com.hf.core.enums.ExceptionEnums.BIND_PHONE_ERROR;
 import static com.hf.core.enums.ExceptionEnums.USER_EXIST_ERROR;
 import static com.hf.userplatform.constants.Constant.BIND_SUCCESS;
 
@@ -52,7 +50,7 @@ public class UserServiceImpl implements UserService {
         if (!StrUtil.hasBlank(id)) {
             throw new AuthException(USER_EXIST_ERROR);
         }
-        Integer b = userMapper.register(user);
+        int b = userMapper.register(user);
         return b > 0;
     }
 
@@ -73,7 +71,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException();
         }
         String id = TokenHolder.get();
-        Integer result = userMapper.bindEmail(email, id);
+        int result = userMapper.bindEmail(email, id);
         if (result == 0) {
             throw new BindException();
         }
@@ -100,7 +98,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException();
         }
         String id = TokenHolder.get();
-        Integer result = userMapper.bindPhone(phone, id);
+        int result = userMapper.bindPhone(phone, id);
         if (result == 0) {
             throw new BindException();
         }

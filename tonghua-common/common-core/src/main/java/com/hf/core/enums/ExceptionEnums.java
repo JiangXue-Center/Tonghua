@@ -15,7 +15,8 @@ public enum ExceptionEnums {
     REGISTER_TOKEN_ERROR("注册授权码不匹配", 40011),
     BIND_EMAIL_ERROR("绑定邮箱失败", 40012),
     BIND_PHONE_ERROR("绑定手机号失败", 40013),
-    USER_EXIST_ERROR("该用户已存在", 40014);
+    USER_EXIST_ERROR("该用户已存在", 40014),
+    TOKEN_VERIFY_ERROR("token验证失败", 40015);
 
 
 

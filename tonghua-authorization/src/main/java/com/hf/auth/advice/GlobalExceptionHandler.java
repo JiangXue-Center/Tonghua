@@ -3,15 +3,13 @@ package com.hf.auth.advice;
 import com.hf.core.exception.AuthException;
 import com.hf.core.exception.TokenGenerateException;
 import com.hf.core.model.Result;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-
-import javax.servlet.http.HttpServletRequest;
 
 import static com.hf.core.enums.ExceptionEnums.TOKEN_GENARATE_ERROR;
 

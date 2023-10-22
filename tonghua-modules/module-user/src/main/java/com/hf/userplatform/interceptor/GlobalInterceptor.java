@@ -1,7 +1,7 @@
 package com.hf.userplatform.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.util.StrUtil;
 import com.hf.core.utils.JwtUtil;
@@ -12,14 +12,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Component
 public class GlobalInterceptor implements HandlerInterceptor {
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         // 在请求处理之前执行，可以访问请求头参数
         String authorization = request.getHeader("Authorization");
         if (!StrUtil.hasBlank(authorization)) {
-            String id = JwtUtil.parseJwt(authorization).getId();
+            if (!JwtUtil.verifyToken(authorization)) {
+                throw new RuntimeException();
+            }
+//            String id = JwtUtil.parseJwt(authorization).getId();
+            String id = JwtUtil.getTokenInfo(authorization).getId();
             TokenHolder.save(id);
         }
         // 执行你的逻辑处理

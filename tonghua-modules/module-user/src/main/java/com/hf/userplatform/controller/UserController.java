@@ -2,7 +2,7 @@ package com.hf.userplatform.controller;
 
 
 import com.hf.core.model.Result;
-import com.hf.core.model.entity.User;
+import com.hf.core.model.entity.user.User;
 import com.hf.userplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

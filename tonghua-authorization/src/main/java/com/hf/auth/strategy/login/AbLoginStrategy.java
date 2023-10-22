@@ -4,8 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.hf.core.exception.AuthException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.security.util.Password;
-
 import static com.hf.core.enums.ExceptionEnums.ACCOUNT_CODE_ERROR;
 import static com.hf.core.enums.ExceptionEnums.ACCOUNT_PASSWORD_ERROR;
 

@@ -5,7 +5,6 @@ import com.hf.artwork.model.vo.ArtworkIndex;
 import com.hf.artwork.model.vo.ArtworkVO;
 import com.hf.artwork.service.ArtworkService;
 import com.hf.core.model.Result;
-import com.hf.core.model.entity.Artwork;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

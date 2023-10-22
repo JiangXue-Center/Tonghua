@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hf.userplatform.mapper.UserMapper">
 
-    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.User">
+    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.user.User">
         <id property="id" column="id" jdbcType="VARCHAR"/>
         <result property="aId" column="a_id" jdbcType="INTEGER"/>
         <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
@@ -25,7 +25,7 @@
           username, bio, gtm_create, gtm_modify, deleted
     </sql>
 
-    <select id="selectByEmailUser" resultType="com.hf.core.model.entity.User">
+    <select id="selectByEmailUser" resultType="com.hf.core.model.entity.user.User">
         <![CDATA[
         select id, a_id, phone_number, email, salt, password, avatar_url,
                username, bio, gtm_create, gtm_modify, deleted
@@ -34,7 +34,7 @@
           and email = #{email}
         ]]>
     </select>
-    <select id="selectByPhoneNumberUser" resultType="com.hf.core.model.entity.User">
+    <select id="selectByPhoneNumberUser" resultType="com.hf.core.model.entity.user.User">
         <![CDATA[
         select id, a_id, phone_number, email, salt, password, avatar_url,
                username, bio, gtm_create, gtm_modify, deleted

@@ -1,5 +1,0 @@
-spring:
-  application:
-    name: module-shopping
-  profiles:
-    active: prod

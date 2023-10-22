@@ -12,8 +12,8 @@
     <artifactId>module-artwork</artifactId>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -27,6 +27,11 @@
         <dependency>
             <groupId>com.hf</groupId>
             <artifactId>common-datasource</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hf</groupId>
+            <artifactId>common-cache</artifactId>
             <version>0.0.1</version>
         </dependency>
 

@@ -1,0 +1,14 @@
+server:
+  port: 7878
+
+spring:
+  application:
+    name: module-inventory-system
+  profiles:
+    active: prod
+
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true

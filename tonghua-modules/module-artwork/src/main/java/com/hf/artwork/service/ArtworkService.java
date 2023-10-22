@@ -2,7 +2,7 @@ package com.hf.artwork.service;
 
 import com.hf.artwork.model.vo.ArtworkIndex;
 import com.hf.artwork.model.vo.ArtworkVO;
-import com.hf.core.model.entity.Artwork;
+import com.hf.core.model.entity.artwork.Artwork;
 
 import java.util.List;
 

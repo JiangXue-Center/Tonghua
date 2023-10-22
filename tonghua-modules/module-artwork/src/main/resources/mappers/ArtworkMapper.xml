@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hf.artwork.mapper.ArtworkMapper">
+<mapper namespace="com.hf.artwork.mapper.artwork.ArtworkMapper">
 
-    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.Artwork">
+    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.artwork.Artwork">
         <result property="id" column="id" jdbcType="BIGINT"/>
         <result property="author" column="author" jdbcType="VARCHAR"/>
         <result property="caption" column="caption" jdbcType="VARCHAR"/>
@@ -42,7 +42,7 @@
     <update id="updateImageCollectionInt">
         update artwork set image_collection = #{img} where id = #{id}
     </update>
-    <select id="selectById" resultType="com.hf.core.model.entity.Artwork">
+    <select id="selectById" resultType="com.hf.core.model.entity.artwork.Artwork">
         <![CDATA[
         select id, author, caption, image_collection, tags,
                publish_time, gtm_create, gtm_modify
@@ -54,7 +54,7 @@
 
 
 
-<!--    <select id="selectArtworks" resultType="com.hf.core.model.entity.Artwork">-->
+<!--    <select id="selectArtworks" resultType="com.hf.core.model.entity.artwork.Artwork">-->
 <!--        <![CDATA[-->
 <!--        select id, author, caption, image_collection, tags,-->
 <!--               publish_time, gtm_create, gtm_modify-->
@@ -76,8 +76,8 @@
             aw.author AS user_id,
             u.avatar_url,
             u.username
-        FROM artwork aw
-                 JOIN user u ON aw.author = u.id
+        FROM `tonghua-artwork`.artwork aw
+                 JOIN `tonghua-user`.user u ON aw.author = u.id
         WHERE aw.id = #{id}
         AND aw.deleted <> 1
         AND u.deleted <> 1
@@ -120,7 +120,7 @@
         ]]>
     </select>
 
-    <select id="selectAllByIdList" resultType="com.hf.core.model.entity.Artwork">
+    <select id="selectAllByIdList" resultType="com.hf.core.model.entity.artwork.Artwork">
         SELECT * from artwork where id > #{id}
     </select>
 

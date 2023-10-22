@@ -2,7 +2,7 @@ package com.hf.auth.strategy.login.impl;
 
 import com.hf.core.exception.PhoneFormatException;
 import com.hf.auth.strategy.login.AbLoginStrategy;
-import com.hf.core.model.entity.User;
+import com.hf.core.model.entity.user.User;
 import com.hf.auth.strategy.login.LoginStrategy;
 import com.hf.core.utils.EncryptionUtil;
 import com.hf.core.utils.PatternUtil;

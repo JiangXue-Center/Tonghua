@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.hf.auth.enums.CodeSenderEnum;
 import com.hf.auth.enums.LoginMethod;
 import com.hf.auth.factory.CodeSenderStrategyFactory;
-import com.hf.auth.factory.LoginStratetyFactory;
+import com.hf.auth.factory.LoginStrategyFactory;
 import com.hf.auth.service.LoginService;
 import com.hf.auth.strategy.code.SendCodeStrategy;
 import com.hf.auth.strategy.login.LoginStrategy;
@@ -14,7 +14,7 @@ import com.hf.cache.service.RedisService;
 import com.hf.core.exception.AuthException;
 import com.hf.core.model.dto.LoginDTO;
 import com.hf.core.model.dto.RegisterDTO;
-import com.hf.core.model.entity.User;
+import com.hf.core.model.entity.user.User;
 import com.hf.core.utils.EncryptionUtil;
 import com.hf.core.utils.JwtUtil;
 import com.hf.core.utils.SpringBeanContext;
@@ -64,13 +64,13 @@ public class LoginServiceImpl implements LoginService {
         //检查登录方法是否正确
         checkLoginMethod(method);
         //获取策略模式工厂类并构建登录策略，获取用户信息
-        LoginStratetyFactory factory = context.getBean(LoginStratetyFactory.class);
+        LoginStrategyFactory factory = context.getBean(LoginStrategyFactory.class);
         LoginStrategy strategy = factory.getLoginStrategy(LoginMethod.fromMethod(method));
         User user = strategy.loginStrategy(certificate, verifyCode);
 
         //将数据存入redis
         String id = user.getId();
-        String token = JwtUtil.createJwtToken(id);
+        String token = JwtUtil.createToken(id);
         StringBuilder builder = new StringBuilder();
         builder.append(LOGIN_TOKEN_KEY);
         builder.append(id);

@@ -3,9 +3,11 @@ package com.hf.gateway.filter;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.hf.cache.service.RedisService;
+import com.hf.core.exception.AuthException;
 import com.hf.core.utils.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 import static com.hf.cache.constants.RedisConstant.LOGIN_TOKEN_KEY;
 import static com.hf.cache.constants.RedisConstant.LOGIN_TOKEN_TTL;
 import static com.hf.core.constant.Constants.ACCESS_TOKEN;
+import static com.hf.core.enums.ExceptionEnums.TOKEN_VERIFY_ERROR;
 
 
 @Component
@@ -67,7 +70,11 @@ public class AuthFilter implements GlobalFilter, Ordered {
                     }
 
                     String accessToken = Iterables.getOnlyElement(list);
-                    String id = JwtUtil.parseJwt(accessToken).getId();
+                    if (!JwtUtil.verifyToken(accessToken)) {
+                        throw new AuthException(TOKEN_VERIFY_ERROR);
+                    }
+                    DecodedJWT tokenInfo = JwtUtil.getTokenInfo(accessToken);
+                    String id = tokenInfo.getClaim("id").asString();
                     StringBuilder builder = new StringBuilder();
                     builder.append(LOGIN_TOKEN_KEY);
                     builder.append(id);

@@ -1,7 +1,7 @@
 minio:
-  endpoint: http://47.115.219.241:9000
-  access-Key: GGVjOjep4X2XRQWu
-  secret-Key: ck21llm5zicEY7q8HNH7iY5EEIVReuhM
+  endpoint: http://www.artnecthub.com:9000
+  access-Key: FVDKOA9i72D32Dpn
+  secret-Key: ykNk1rPtIusOOxJgizFdad9WWXqZ0dhP
   bucket-Name: tonghua-artwork
 
 

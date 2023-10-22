@@ -1,6 +1,6 @@
 package com.hf.auth.strategy.login;
 
-import com.hf.core.model.entity.User;
+import com.hf.core.model.entity.user.User;
 
 public interface LoginStrategy {
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hf.shopping.mapper.SkuMapper">
+
+    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.inventory.StockKeepingUnit">
+        <result property="skuId" column="sku_id" jdbcType="BIGINT"/>
+        <result property="spuId" column="spu_id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="images" column="images" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
+        <result property="stock" column="stock" jdbcType="INTEGER"/>
+        <result property="indexes" column="indexes" jdbcType="VARCHAR"/>
+        <result property="ownSpec" column="own_spec" jdbcType="VARCHAR"/>
+        <result property="enable" column="enable" jdbcType="TINYINT"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="DATE"/>
+        <result property="gmtModify" column="gmt_modify" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        sku_id, spu_id, images, title, enable, indexes,
+        price, stock, gmt_create, gmt_modify, own_spec
+    </sql>
+
+
+
+
+</mapper>

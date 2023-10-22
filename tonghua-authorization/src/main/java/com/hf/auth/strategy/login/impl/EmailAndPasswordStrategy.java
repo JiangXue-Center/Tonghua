@@ -1,12 +1,11 @@
 package com.hf.auth.strategy.login.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.hf.core.enums.ExceptionEnums;
 import com.hf.core.exception.AuthException;
 import com.hf.core.exception.EmailFormatException;
 import com.hf.auth.strategy.login.AbLoginStrategy;
 import com.hf.auth.strategy.login.LoginStrategy;
-import com.hf.core.model.entity.User;
+import com.hf.core.model.entity.user.User;
 import com.hf.core.utils.EncryptionUtil;
 import com.hf.core.utils.PatternUtil;
 import com.hf.system.api.RemoteUserService;

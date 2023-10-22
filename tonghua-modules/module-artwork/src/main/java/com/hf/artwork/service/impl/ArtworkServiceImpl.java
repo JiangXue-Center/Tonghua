@@ -3,20 +3,17 @@ package com.hf.artwork.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import com.hf.artwork.mapper.ArtworkMapper;
+import com.hf.artwork.mapper.artwork.ArtworkMapper;
 import com.hf.artwork.model.vo.ArtworkIndex;
 import com.hf.artwork.model.vo.ArtworkVO;
 import com.hf.artwork.service.ArtworkService;
 import com.hf.core.exception.ParamException;
-import com.hf.core.model.entity.Artwork;
+import com.hf.core.model.entity.artwork.Artwork;
 import com.hf.minio.service.MinIOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
-import static com.hf.minio.constant.MinIOConstant.ARTWORK_BUCKET_NAME;
-import static com.hf.minio.constant.MinIOConstant.ARTWORK_FOLDER;
 
 @Service
 public class ArtworkServiceImpl implements ArtworkService {

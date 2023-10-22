@@ -1,7 +1,6 @@
 package com.hf.system.api;
 
-import com.hf.core.model.dto.RegisterDTO;
-import com.hf.core.model.entity.User;
+import com.hf.core.model.entity.user.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
