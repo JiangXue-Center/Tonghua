@@ -2,23 +2,23 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hf.shopping.mapper.SpuMapper">
+<mapper namespace="com.hf.inventory.mapper.SpuMapper">
 
-    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.inventory.StandardProductUnit">
-        <result property="spuId" column="spu_id" jdbcType="BIGINT"/>
-        <result property="categoryId" column="category_id" jdbcType="BIGINT"/>
-        <result property="brandId" column="brand_id" jdbcType="BIGINT"/>
-        <result property="businessId" column="business_id" jdbcType="BIGINT"/>
-        <result property="subTitle" column="sub_title" jdbcType="VARCHAR"/>
-        <result property="mainImage" column="main_image" jdbcType="VARCHAR"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="saleable" column="saleable" jdbcType="TINYINT"/>
-        <result property="gmtCreate" column="gmt_create" jdbcType="DATE"/>
-        <result property="gmtModify" column="gmt_modify" jdbcType="DATE"/>
-    </resultMap>
+<!--    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.inventory.StandardProductUnit">-->
+<!--        <id property="spuId" column="spu_id" jdbcType="BIGINT"/>-->
+<!--        <result property="categoryId" column="category_id" jdbcType="BIGINT"/>-->
+<!--        <result property="brandId" column="brand_id" jdbcType="BIGINT"/>-->
+<!--        <result property="businessId" column="business_id" jdbcType="BIGINT"/>-->
+<!--        <result property="subTitle" column="sub_title" jdbcType="VARCHAR"/>-->
+<!--        <result property="mainImage" column="main_image" jdbcType="VARCHAR"/>-->
+<!--        <result property="productName" column="product_name" jdbcType="VARCHAR"/>-->
+<!--        <result property="saleable" column="saleable" jdbcType="TINYINT"/>-->
+<!--        <result property="gmtCreate" column="gmt_create" jdbcType="DATE"/>-->
+<!--        <result property="gmtModify" column="gmt_modify" jdbcType="DATE"/>-->
+<!--    </resultMap>-->
 
-    <resultMap id="SpuIndexVO" type="com.hf.shopping.model.vo.SpuIndexVO">
-        <result property="spuId" column="spu_id" jdbcType="BIGINT"/>
+    <resultMap id="SpuIndexVO" type="com.hf.inventory.model.vo.SpuIndexVO">
+        <id property="spuId" column="spu_id" jdbcType="BIGINT"/>
         <result property="subTitle" column="sub_title" jdbcType="VARCHAR"/>
         <result property="mainImage" column="main_image" jdbcType="VARCHAR"/>
         <result property="price" column="price" jdbcType="DECIMAL"/>
@@ -26,9 +26,22 @@
         <result property="businessName" column="business_name" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.inventory.StandardProductUnit">
+        <id property="spuId" column="spu_id" jdbcType="BIGINT"/>
+        <result property="categoryId" column="category_id" jdbcType="BIGINT"/>
+        <result property="brandId" column="brand_id" jdbcType="BIGINT"/>
+        <result property="businessId" column="business_id" jdbcType="BIGINT"/>
+        <result property="subTitle" column="sub_title" jdbcType="VARCHAR"/>
+        <result property="mainImage" column="main_image" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="saleable" column="saleable" jdbcType="TINYINT"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="DATE"/>
+        <result property="gmtModify" column="gmt_modify" jdbcType="DATE"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
-        spu_id, category_id, brand_id, business_id, sub_title, main_image, name
-        saleable, gmt_create, gmt_modify, deleted
+        spu_id, product_name, sub_title, main_image, category_id, brand_id, business_id,
+        saleable, gmt_create, gmt_modify
     </sql>
 
     <select id="selectSpuIndexByKeyword" resultMap="SpuIndexVO">
@@ -41,6 +54,12 @@
             ON p.business_id = b.business_id
         WHERE p.sub_title LIKE CONCAT('%', #{keyword}, '%')
         OR p.name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+    <select id="selectSpuById" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from standard_product_unit
+        where spu_id = #{id}
     </select>
 
 </mapper>

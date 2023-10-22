@@ -1,3 +1,5 @@
+package com.hf.core.model.entity.inventory;
+
 import java.util.Date;
 
 /**

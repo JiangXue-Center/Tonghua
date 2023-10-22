@@ -1,4 +1,4 @@
-package com.hf.shopping.model.vo;
+package com.hf.inventory.model.vo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

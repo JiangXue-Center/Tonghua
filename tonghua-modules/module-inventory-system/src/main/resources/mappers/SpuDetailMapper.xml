@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hf.inventory.mapper.SpuDetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.inventory.SpuDetail">
+        <id property="spuDetailId" column="spu_detail_id" jdbcType="BIGINT"/>
+        <result property="spuId" column="spu_id" jdbcType="BIGINT"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="genericSpec" column="generic_spec" jdbcType="VARCHAR"/>
+        <result property="specialSpec" column="special_spec" jdbcType="VARCHAR"/>
+        <result property="packingList" column="packing_list" jdbcType="VARCHAR"/>
+        <result property="afterService" column="after_service" jdbcType="VARCHAR"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="DATE"/>
+        <result property="gmtModify" column="gmt_modify" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        spu_detail_id, spu_id, description, generic_spec, special_spec, packing_list, after_service,
+        gmt_create, gmt_modify
+    </sql>
+
+    <sql id="specParamColumns">
+        spec_param_id, category_id, group_id, name, numeric, unit,
+        generic, searching, segments, gmt_create, gmt_modify
+    </sql>
+
+    <sql id="specGroupColumns">
+        spec_group_id, category_id, name, gmt_create, gmt_modify
+    </sql>
+
+
+    <select id="selectSpuDetailBySpuId" resultType="com.hf.core.model.entity.inventory.SpuDetail">
+        select spu_detail_id, spu_id, description, generic_spec, special_spec, packing_list, after_service
+        from spu_detail where spu_id = #{id}
+    </select>
+
+    <select id="selectSpecParam" resultType="com.hf.core.model.entity.inventory.SpecParam">
+        select spec_param_id, category_id, group_id, name, `numeric`, unit, generic, searching, segments
+        from spec_param
+        where spec_param_id in
+        <foreach collection="set" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="selectSpecGroup" resultType="com.hf.core.model.entity.inventory.SpecGroup">
+        select
+            <include refid="specGroupColumns" />
+        from spec_group
+        where spec_group_id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+
+</mapper>

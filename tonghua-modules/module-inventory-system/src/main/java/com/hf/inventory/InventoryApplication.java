@@ -1,4 +1,4 @@
-package com.hf.shopping;
+package com.hf.inventory;
 
 import com.hf.minio.config.MinIOConfig;
 import com.hf.minio.service.MinIOService;

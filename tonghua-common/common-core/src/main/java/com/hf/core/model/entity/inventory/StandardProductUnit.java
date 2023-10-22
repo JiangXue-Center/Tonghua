@@ -14,7 +14,7 @@ public class StandardProductUnit {
     /**
      * 商品名称
      */
-    private String name;
+    private String productName;
 
     /**
      * 副标题，一般是促销信息
@@ -65,12 +65,12 @@ public class StandardProductUnit {
         this.spuId = spuId;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getSubTitle() {
@@ -135,5 +135,21 @@ public class StandardProductUnit {
 
     public void setGmtModify(Date gmtModify) {
         this.gmtModify = gmtModify;
+    }
+
+    @Override
+    public String toString() {
+        return "StandardProductUnit{" +
+                "spuId=" + spuId +
+                ", productName='" + productName + '\'' +
+                ", subTitle='" + subTitle + '\'' +
+                ", mainImage='" + mainImage + '\'' +
+                ", categoryId=" + categoryId +
+                ", businessId=" + businessId +
+                ", brandId=" + brandId +
+                ", saleable=" + saleable +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                '}';
     }
 }
