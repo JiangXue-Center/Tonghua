@@ -17,9 +17,9 @@ public class Business {
     private String businessName;
 
     /**
-     * 商家邮箱
+     * 商标
      */
-    private String businessEmail;
+    private String businessLogo;
 
     /**
      * 商家地址
@@ -63,12 +63,12 @@ public class Business {
         this.businessName = businessName;
     }
 
-    public String getBusinessEmail() {
-        return businessEmail;
+    public String getBusinessLogo() {
+        return businessLogo;
     }
 
-    public void setBusinessEmail(String businessEmail) {
-        this.businessEmail = businessEmail;
+    public void setBusinessLogo(String businessLogo) {
+        this.businessLogo = businessLogo;
     }
 
     public String getBusinessAddress() {

@@ -10,9 +10,11 @@ public interface ArtworkService {
 
     Artwork selectById(Integer id);
 
-    List<ArtworkIndex> selectArtworkIndexByKeyword(String keyword);
+    List<ArtworkIndex> selectArtworkIndexByKeyword(String keyword, Integer offset, Integer size);
 
     ArtworkVO selectArtworkVO(Long id);
 
     List<ArtworkIndex> recommendArtworkIndex(String id);
+
+    List<ArtworkIndex> recommendArtworkIndexPage(String id, Integer offset, Integer size);
 }

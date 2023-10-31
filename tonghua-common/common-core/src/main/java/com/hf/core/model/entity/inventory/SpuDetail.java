@@ -17,6 +17,12 @@ public class SpuDetail {
     private long spuId;
 
     /**
+     * 默认展示的sku_id
+     */
+    private long defaultSkuId;
+
+
+    /**
      * 商品描述信息
      */
     private String description;
@@ -66,6 +72,14 @@ public class SpuDetail {
 
     public void setSpuId(long spuId) {
         this.spuId = spuId;
+    }
+
+    public long getDefaultSkuId() {
+        return defaultSkuId;
+    }
+
+    public void setDefaultSkuId(long defaultSkuId) {
+        this.defaultSkuId = defaultSkuId;
     }
 
     public String getDescription() {

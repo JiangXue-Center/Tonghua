@@ -16,7 +16,10 @@ public interface ArtworkMapper {
 
 //    List<Artwork> selectArtworks(String keyword);
 
-    List<ArtworkIndex> selectIndexByKeyword(String keyword);
+    List<ArtworkIndex> selectIndexByKeyword(
+            @Param("keyword") String keyword,
+            @Param("offset") int offset,
+            @Param("size") int size);
 
     ArtworkVO selectArtworkVoById(Long id);
 
@@ -25,5 +28,12 @@ public interface ArtworkMapper {
     List<Artwork> selectAllByIdList(Long id);
 
     int updateImageCollectionInt(@Param("id") Long id, @Param("img") String img);
+
+    List<Artwork> selectAll();
+
+    List<ArtworkIndex> pageRecommend(
+            @Param("offset") int offset,
+            @Param("size") int size
+    );
 
 }

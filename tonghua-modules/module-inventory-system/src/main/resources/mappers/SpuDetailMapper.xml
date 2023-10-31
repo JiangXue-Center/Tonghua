@@ -7,6 +7,7 @@
     <resultMap id="BaseResultMap" type="com.hf.core.model.entity.inventory.SpuDetail">
         <id property="spuDetailId" column="spu_detail_id" jdbcType="BIGINT"/>
         <result property="spuId" column="spu_id" jdbcType="BIGINT"/>
+        <result property="defaultSkuId" column="default_sku_id" jdbcType="BIGINT"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="genericSpec" column="generic_spec" jdbcType="VARCHAR"/>
         <result property="specialSpec" column="special_spec" jdbcType="VARCHAR"/>
@@ -17,8 +18,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        spu_detail_id, spu_id, description, generic_spec, special_spec, packing_list, after_service,
-        gmt_create, gmt_modify
+        spu_detail_id, spu_id, default_sku_id, description, generic_spec,
+        special_spec, packing_list, after_service, gmt_create, gmt_modify
     </sql>
 
     <sql id="specParamColumns">
@@ -32,7 +33,7 @@
 
 
     <select id="selectSpuDetailBySpuId" resultType="com.hf.core.model.entity.inventory.SpuDetail">
-        select spu_detail_id, spu_id, description, generic_spec, special_spec, packing_list, after_service
+        select spu_detail_id, spu_id, default_sku_id, description, generic_spec, special_spec, packing_list, after_service
         from spu_detail where spu_id = #{id}
     </select>
 

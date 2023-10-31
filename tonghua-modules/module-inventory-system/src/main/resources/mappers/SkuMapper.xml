@@ -18,15 +18,28 @@
         <result property="gmtModify" column="gmt_modify" jdbcType="DATE"/>
     </resultMap>
 
+    <resultMap id="SkuBaseInfoResultMap" type="com.hf.inventory.model.vo.SkuBaseInfo">
+        <id property="skuId" column="sku_id" jdbcType="BIGINT"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
+        <result property="image" column="images" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
         sku_id, spu_id, images, title, enable, indexes,
         price, stock, gmt_create, gmt_modify, own_spec
     </sql>
+
     <select id="selectStockKeepingUnitById" resultType="com.hf.core.model.entity.inventory.StockKeepingUnit">
         select
             <include refid="Base_Column_List" />
         from stock_keeping_unit
         where sku_id = #{id}
+    </select>
+
+    <select id="selectSkuBaseInfoBySpuId" resultMap="SkuBaseInfoResultMap">
+        select sku_id, price, images
+        from tonghua_inventory_system.stock_keeping_unit
+        where spu_id = #{spuId}
     </select>
 
 

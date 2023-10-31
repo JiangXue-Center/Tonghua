@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hf.inventory.mapper.BusinessMapper">
+
+    <resultMap id="BaseResultMap" type="com.hf.core.model.entity.inventory.Business">
+        <id property="businessId" column="business_id" jdbcType="BIGINT"/>
+        <result property="businessName" column="business_name" jdbcType="VARCHAR"/>
+        <result property="businessAddress" column="business_address" jdbcType="VARCHAR"/>
+        <result property="businessDescription" column="business_description" jdbcType="VARCHAR"/>
+        <result property="businessLogo" column="business_logo" jdbcType="VARCHAR"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="DATE"/>
+        <result property="gmtModify" column="gmt_modify" jdbcType="DATE"/>
+        <result property="deleted" column="deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        business_id, business_name, business_logo, business_address,
+        business_description, gmt_create, gmt_modify, deleted
+    </sql>
+    <select id="selectBusinessById" resultType="com.hf.core.model.entity.inventory.Business">
+        select
+            <include refid="Base_Column_List" />
+        from business
+        where business_id = #{id}
+        <![CDATA[
+        and deleted <> 1
+        ]]>
+    </select>
+
+
+</mapper>

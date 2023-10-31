@@ -4,19 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class SpuDetailVo implements Serializable {
+public class SpuDetailVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * SPU详情ID
-     */
-    private long spuDetailId;
-
-    /**
-     * SPU ID
-     */
-    private long spuId;
 
     /**
      * 商品描述信息
@@ -46,21 +36,6 @@ public class SpuDetailVo implements Serializable {
     private String afterService;
 
     // Getters and setters for the above fields
-    public long getSpuDetailId() {
-        return spuDetailId;
-    }
-
-    public void setSpuDetailId(long spuDetailId) {
-        this.spuDetailId = spuDetailId;
-    }
-
-    public long getSpuId() {
-        return spuId;
-    }
-
-    public void setSpuId(long spuId) {
-        this.spuId = spuId;
-    }
 
     public String getDescription() {
         return description;
@@ -105,8 +80,6 @@ public class SpuDetailVo implements Serializable {
     @Override
     public String toString() {
         return "SpuDetailVo{" +
-                "spuDetailId=" + spuDetailId +
-                ", spuId=" + spuId +
                 ", description='" + description + '\'' +
                 ", genericSpec=" + genericSpec +
                 ", specialSpec=" + specialSpec +

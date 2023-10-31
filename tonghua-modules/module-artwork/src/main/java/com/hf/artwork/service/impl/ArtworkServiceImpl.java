@@ -37,15 +37,24 @@ public class ArtworkServiceImpl implements ArtworkService {
     }
 
     @Override
-    public List<ArtworkIndex> selectArtworkIndexByKeyword(String keyword) {
+    public List<ArtworkIndex> selectArtworkIndexByKeyword(String keyword, Integer offset, Integer size) {
         if (StrUtil.hasBlank(keyword)) {
             throw new RuntimeException("关键词不可为空");
         }
-        List<ArtworkIndex> artworkIndices = artworkMapper.selectIndexByKeyword(keyword);
+        if (offset == null || size == null) {
+            throw new RuntimeException("页面不可为空");
+        }
+        if (offset < 1 || size != 20) {
+            throw new RuntimeException("参数错误");
+        }
+        List<ArtworkIndex> artworkIndices = artworkMapper.selectIndexByKeyword(keyword, offset - 1, size);
         for (ArtworkIndex artworkIndex : artworkIndices) {
             String indexLink = artworkIndex.getIndexLink();
             String link = minIOService.path2Link(indexLink);
             artworkIndex.setIndexLink(link);
+            String authorAvatar = artworkIndex.getAuthorAvatar();
+            String avatarUrl = minIOService.path2Link(authorAvatar);
+            artworkIndex.setAuthorAvatar(avatarUrl);
         }
         return artworkIndices;
     }
@@ -58,7 +67,10 @@ public class ArtworkServiceImpl implements ArtworkService {
         ArtworkVO artworkVO = artworkMapper.selectArtworkVoById(id);
         List<String> imageCollection = artworkVO.getImageCollection();
         List<String> links = minIOService.paths2Links(imageCollection);
+        String avatarUrl = artworkVO.getAuthorAvatar();
+        String avatarLink = minIOService.path2Link(avatarUrl);
         artworkVO.setImageCollection(links);
+        artworkVO.setAuthorAvatar(avatarLink);
         return artworkVO;
     }
 
@@ -66,8 +78,8 @@ public class ArtworkServiceImpl implements ArtworkService {
     public List<ArtworkIndex> recommendArtworkIndex(String id) {
         Map<Long, Integer> map = new HashMap<>();
         List<Long> ids = new ArrayList<>();
-        for (int i = 0; i < 6; ) {
-            long l = RandomUtil.randomLong(1, 11);
+        for (int i = 0; i < 20; ) {
+            long l = RandomUtil.randomLong(1, 80);
             if (!map.containsKey(l)) {
                 map.put(l, i);
                 ids.add(l);
@@ -78,6 +90,26 @@ public class ArtworkServiceImpl implements ArtworkService {
         List<ArtworkIndex> artworkIndices = artworkMapper.selectIndexByIds(ids);
         for (ArtworkIndex artworkIndex : artworkIndices) {
             String link = minIOService.path2Link(artworkIndex.getIndexLink());
+            String avatar = minIOService.path2Link(artworkIndex.getAuthorAvatar());
+            artworkIndex.setAuthorAvatar(avatar);
+            artworkIndex.setIndexLink(link);
+        }
+        return artworkIndices;
+    }
+
+    @Override
+    public List<ArtworkIndex> recommendArtworkIndexPage(String id, Integer offset, Integer size) {
+        if (offset == null || size == null) {
+            throw new RuntimeException();
+        }
+        if (offset < 1) {
+            throw new RuntimeException();
+        }
+        List<ArtworkIndex> artworkIndices = artworkMapper.pageRecommend(offset - 1, size);
+        for (ArtworkIndex artworkIndex : artworkIndices) {
+            String link = minIOService.path2Link(artworkIndex.getIndexLink());
+            String avatar = minIOService.path2Link(artworkIndex.getAuthorAvatar());
+            artworkIndex.setAuthorAvatar(avatar);
             artworkIndex.setIndexLink(link);
         }
         return artworkIndices;

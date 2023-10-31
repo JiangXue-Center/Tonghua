@@ -45,7 +45,7 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private RedisService redisService;
 
-    private static final ExecutorService EMAIL_POOL_EXECUTOR = Executors.newSingleThreadExecutor();
+    private static final ExecutorService EMAIL_POOL_EXECUTOR = Executors.newVirtualThreadPerTaskExecutor();
 
 
     @Override

@@ -39,14 +39,16 @@
         id, author, caption, image_collection, tags,
           publish_time, gtm_create, gtm_modify, deleted
     </sql>
+
     <update id="updateImageCollectionInt">
         update artwork set image_collection = #{img} where id = #{id}
     </update>
+
     <select id="selectById" resultType="com.hf.core.model.entity.artwork.Artwork">
         <![CDATA[
         select id, author, caption, image_collection, tags,
                publish_time, gtm_create, gtm_modify
-        from artwork
+        from tonghua_artwork.artwork
         where deleted <> 1
         and id = #{id}
         ]]>
@@ -66,7 +68,6 @@
 <!--    </select>-->
 
     <select id="selectArtworkVoById" resultMap="artworkVO">
-        <![CDATA[
         SELECT
             aw.id AS artwork_id,
             aw.caption,
@@ -76,29 +77,32 @@
             aw.author AS user_id,
             u.avatar_url,
             u.username
-        FROM `tonghua-artwork`.artwork aw
-                 JOIN `tonghua-user`.user u ON aw.author = u.id
+        FROM `tonghua_artwork`.artwork aw
+                 JOIN `tonghua_user`.user u ON aw.author = u.id
         WHERE aw.id = #{id}
+        <![CDATA[
         AND aw.deleted <> 1
         AND u.deleted <> 1
         ]]>
     </select>
 
     <select id="selectIndexByKeyword" resultMap="artworkIndex">
-        <![CDATA[
         SELECT
             aw.id AS artwork_id,
             aw.image_collection,
             aw.author AS user_id,
             u.avatar_url,
             u.username
-        FROM artwork aw
-                JOIN  user u ON aw.author = u.id
+        FROM tonghua_artwork.artwork aw
+                JOIN  tonghua_user.user u ON aw.author = u.id
         WHERE aw.caption LIKE CONCAT('%', #{keyword}, '%')
         OR aw.tags LIKE CONCAT('%', #{keyword}, '%')
+        <![CDATA[
         AND aw.deleted <> 1
         AND u.deleted <> 1
         ]]>
+        LIMIT #{size}
+        OFFSET #{offset}
     </select>
 
     <select id="selectIndexByIds" resultMap="artworkIndex">
@@ -108,8 +112,8 @@
             aw.author AS user_id,
             u.avatar_url,
             u.username
-        FROM artwork aw
-                 JOIN  user u ON aw.author = u.id
+        FROM tonghua_artwork.artwork aw
+                 JOIN  tonghua_user.user u ON aw.author = u.id
         WHERE aw.id IN
         <foreach collection="ids" item="id" open="(" separator="," close=")">
             #{id}
@@ -121,7 +125,28 @@
     </select>
 
     <select id="selectAllByIdList" resultType="com.hf.core.model.entity.artwork.Artwork">
-        SELECT * from artwork where id > #{id}
+        SELECT * from tonghua_artwork.artwork where id > #{id}
+    </select>
+    <select id="selectAll" resultType="com.hf.core.model.entity.artwork.Artwork">
+        select * from tonghua_artwork.artwork
+    </select>
+
+    <select id="pageRecommend" resultMap="artworkIndex">
+        SELECT
+            aw.id AS artwork_id,
+            aw.image_collection,
+            aw.author AS user_id,
+            u.avatar_url,
+            u.username
+        FROM tonghua_artwork.artwork aw
+                JOIN  tonghua_user.user u ON aw.author = u.id
+        WHERE
+        <![CDATA[
+        aw.deleted <> 1
+        AND u.deleted <> 1
+        ]]>
+        LIMIT #{size}
+        OFFSET #{offset}
     </select>
 
 

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/sh")
+@RequestMapping("/inventory")
 public class InventoryController {
 
     @Autowired
