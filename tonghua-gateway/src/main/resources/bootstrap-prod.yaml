@@ -3,8 +3,8 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.87.188:8848
-        namespace: f73e81a9-f1aa-4456-84c8-981ea8cb7756
+        namespace: d04d7486-88d9-4f62-bbe5-f682376eba03
       config:
         server-addr: 192.168.87.188:8848
         file-extension: yaml
-        namespace: f73e81a9-f1aa-4456-84c8-981ea8cb7756
+        namespace: d04d7486-88d9-4f62-bbe5-f682376eba03

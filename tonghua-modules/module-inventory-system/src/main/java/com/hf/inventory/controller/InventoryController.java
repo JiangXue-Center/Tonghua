@@ -24,8 +24,8 @@ public class InventoryController {
 //    }
 
     @GetMapping("keyword/{keyword}")
-    public Result<List<SpuIndexVO>> selectSpuIndexVo(@PathVariable("keyword") String keyword) {
-        List<SpuIndexVO> spuIndexVOS = inventoryService.selectSpuIndexVoByKeyword(keyword);
+    public Result<List<SpuIndexVO>> selectSpuIndexVO(@PathVariable("keyword") String keyword) {
+        List<SpuIndexVO> spuIndexVOS = inventoryService.selectSpuIndexVOByKeyword(keyword);
         return Result.success(spuIndexVOS);
     }
 
@@ -34,6 +34,13 @@ public class InventoryController {
             throws JsonProcessingException {
         Map<String, Object> map = inventoryService.selectSpuDetailById(productId);
         return Result.success(map);
+    }
+
+    @GetMapping("index/offset/{offset}/size/{size}")
+    public Result<List<SpuIndexVO>> selectSpuIndexVOPage(@PathVariable("offset") Integer offset,
+                                                         @PathVariable("size") Integer size) {
+        List<SpuIndexVO> spuIndexVOS = inventoryService.recommandeSpuIndexPage("", offset, size);
+        return Result.success(spuIndexVOS);
     }
 
 }

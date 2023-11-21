@@ -14,4 +14,6 @@ public interface SkuMapper {
 
     List<SkuBaseInfo> selectSkuBaseInfoBySpuId(@Param("spuId") long spuId);
 
+    Integer selectStockBySkuId(@Param("skuId") long skuId);
+
 }

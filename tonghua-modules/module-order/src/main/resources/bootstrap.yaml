@@ -1,0 +1,8 @@
+server:
+  port: 7799
+
+spring:
+  application:
+    name: module-order-system
+  profiles:
+    active: prod

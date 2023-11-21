@@ -17,7 +17,6 @@ public class CodeSenderStrategyFactory {
     private SpringBeanContext context;
 
 
-
     public SendCodeStrategy getSendCodeStrategy(CodeSenderEnum codeSenderEnum) {
         Integer method = codeSenderEnum.getMethod();
         if (compare(method, METHOD_EMAIL)) {

@@ -1,5 +1,6 @@
 package com.hf.cache.configure;
 
+import com.hf.cache.service.RedisService;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -22,8 +23,7 @@ public class RedisConfig extends CachingConfigurerSupport
 {
     @Bean
     @SuppressWarnings(value = { "unchecked", "rawtypes" })
-    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory)
-    {
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
 
@@ -39,5 +39,11 @@ public class RedisConfig extends CachingConfigurerSupport
 
         template.afterPropertiesSet();
         return template;
+    }
+
+    @Bean
+    public RedisService redisService(RedisTemplate<Object, Object> redisTemplate) {
+        return new RedisService(redisTemplate);
+
     }
 }

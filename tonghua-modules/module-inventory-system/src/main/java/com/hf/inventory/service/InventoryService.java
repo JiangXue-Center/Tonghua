@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface InventoryService {
-    List<SpuIndexVO> selectSpuIndexVoByKeyword(String keyword);
+    List<SpuIndexVO> selectSpuIndexVOByKeyword(String keyword);
 
     Map<String, Object> selectSpuDetailById(Long productId) throws JsonProcessingException;
+
+    List<SpuIndexVO> recommandeSpuIndexPage(String id, Integer offset, Integer size);
 }

@@ -16,18 +16,26 @@ import java.util.concurrent.TimeUnit;
  * @author ruoyi
  **/
 @SuppressWarnings(value = {"unchecked", "rawtypes"})
-@Component
+//@Component
 public class RedisService {
 
-    @Autowired
+//    @Autowired
     public RedisTemplate redisTemplate;
+
+    public RedisService(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     /**
      * 缓存基本的对象，Integer、String、实体类等
      *
      * @param key   缓存的键值
-     * @param value 缓存的值
+     * @param value 缓存的值;
+     *
      */
+
+
+
     public <T> void setCacheObject(final String key, final T value) {
         redisTemplate.opsForValue().set(key, value);
     }
@@ -240,5 +248,15 @@ public class RedisService {
      */
     public Collection<String> keys(final String pattern) {
         return redisTemplate.keys(pattern);
+    }
+
+    /**
+     * 自增长
+     * @param key Redis键
+     * @param v 自增长的值
+     * @return
+     */
+    public Long increase(final String key, final long v) {
+        return redisTemplate.opsForValue().increment(key, v);
     }
 }

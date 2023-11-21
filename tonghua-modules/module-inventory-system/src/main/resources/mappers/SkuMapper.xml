@@ -42,5 +42,11 @@
         where spu_id = #{spuId}
     </select>
 
+    <select id="selectStockBySkuId" resultType="java.lang.Integer">
+        select stock
+        from tonghua_inventory_system.stock_keeping_unit
+        where sku_id = #{skuId}
+    </select>
+
 
 </mapper>

@@ -20,5 +20,6 @@ public interface SpuMapper {
             "VALUES (#{spuName}, #{title}, #{categoryId}, #{status}, #{remark}, #{mainImage}, #{gmtCreate}, #{gmtModify}, #{deleted})")
     void insertSPUProduct(SpuProduct spuProduct);
 
+    List<SpuIndexVO> recommendSpuIndex(@Param("offset") Integer offset, @Param("size") Integer size);
 }
 

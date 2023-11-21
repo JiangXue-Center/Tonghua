@@ -3,7 +3,10 @@ package com.hf.inventory.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hf.cache.service.RedisService;
 import com.hf.core.model.entity.inventory.*;
+import com.hf.core.model.entity.order.Order;
+import com.hf.core.model.entity.order.OrderDetail;
 import com.hf.inventory.mapper.BusinessMapper;
 import com.hf.inventory.mapper.SpuDetailMapper;
 import com.hf.inventory.model.vo.SkuBaseInfo;
@@ -14,13 +17,18 @@ import com.hf.inventory.mapper.SkuMapper;
 import com.hf.inventory.mapper.SpuMapper;
 import com.hf.inventory.model.vo.SpuIndexVO;
 import com.hf.inventory.service.InventoryService;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.hf.amqp.constants.MQConstants.ORDER_INVENTORY_QUEUE;
+import static com.hf.inventory.constants.RedisConstants.PRODUCT_INVENTORY_KEY;
+import static com.hf.inventory.constants.RedisConstants.PRODUCT_INVENTORY_TTL;
 import static com.hf.minio.constant.MinIOConstant.*;
 
 @Service
@@ -43,9 +51,12 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Autowired
     private MinIOService minIOService;
+
+    @Autowired
+    private RedisService redisService;
     
     @Override
-    public List<SpuIndexVO> selectSpuIndexVoByKeyword(String keyword) {
+    public List<SpuIndexVO> selectSpuIndexVOByKeyword(String keyword) {
         List<SpuIndexVO> spuIndexVOS = spuMapper.selectSpuIndexByKeyword(keyword);
         for (SpuIndexVO spuIndexVO : spuIndexVOS) {
             if (!StrUtil.hasBlank(spuIndexVO.getMainImage())) {
@@ -102,6 +113,45 @@ public class InventoryServiceImpl implements InventoryService {
         business.setBusinessLogo(logoLink);
         //11.拼装成一个map对象作为响应体
         return SpuDetailUtil.createSpuDetailMap(spu, spuDetailVo, business, skuBaseInfos);
+    }
+
+    @Override
+    public List<SpuIndexVO> recommandeSpuIndexPage(String id, Integer offset, Integer size) {
+        if (offset == null || size == null) {
+            throw new RuntimeException();
+        }
+        if (offset < 1) {
+            throw new RuntimeException();
+        }
+        List<SpuIndexVO> spuIndexVOS = spuMapper.recommendSpuIndex(offset - 1, size);
+        spuIndexVOS = spuIndexVOS.stream().map(spuIndexVO -> {
+            spuIndexVO.setMainImage(minIOService.path2Link(spuIndexVO.getMainImage(), SPU_BUCKET_NAME, SKU_FOLDER));
+            return spuIndexVO;
+        }).collect(Collectors.toList());
+        return spuIndexVOS;
+    }
+
+    @RabbitListener(queues = ORDER_INVENTORY_QUEUE)
+    public void processSubmitOrder(Map<String , Object> map) {
+        Order order = (Order) map.get("order");
+        System.out.println(order);
+        List<OrderDetail> orderDetails = (List<OrderDetail>) map.get("orderDetails");
+        for (OrderDetail orderDetail : orderDetails) {
+            System.out.println(orderDetail);
+            long skuId = orderDetail.getSkuId();
+            String key = PRODUCT_INVENTORY_KEY + skuId;
+            int purchaseQuantity = orderDetail.getPurchaseQuantity();
+            Integer stock = redisService.getCacheObject(key);
+            if (stock == null) {
+                stock = skuMapper.selectStockBySkuId(skuId);
+            }
+            if (stock == 0 || stock < purchaseQuantity) {
+                System.out.println("库存不足");
+                throw new RuntimeException();
+            } else {
+                redisService.setCacheObject(key, stock - purchaseQuantity, PRODUCT_INVENTORY_TTL, TimeUnit.MINUTES);
+            }
+        }
     }
 
 }

@@ -61,5 +61,16 @@
         from standard_product_unit
         where spu_id = #{id}
     </select>
+    <select id="recommendSpuIndex" resultType="com.hf.inventory.model.vo.SpuIndexVO">
+        select p.spu_id, p.sub_title, p.main_image, k.price, b.business_id, b.business_name
+        from standard_product_unit p
+            JOIN stock_keeping_unit k
+            ON p.spu_id = k.spu_id
+            AND p.main_image = k.images
+            JOIN business as b
+            ON p.business_id = b.business_id
+        limit #{size}
+        offset #{offset}
+    </select>
 
 </mapper>

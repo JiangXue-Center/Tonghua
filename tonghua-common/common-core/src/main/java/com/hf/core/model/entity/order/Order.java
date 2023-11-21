@@ -1,12 +1,16 @@
 package com.hf.core.model.entity.order;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * Java entity class for the 'order' table.
  */
-public class Order {
+public class Order implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 订单ID
      */
@@ -33,12 +37,12 @@ public class Order {
     private String trackingNumber;
 
     /**
-     * 发票抬头
+     * 发票抬头 (0: 个人, 1: 公司)
      */
     private String invoiceTitle;
 
     /**
-     * 发票类型 (0: 个人, 1: 公司)
+     * 发票类型 (0: 纸质发票, 1: 电子普通发票)
      */
     private Integer invoiceType;
 
@@ -53,9 +57,9 @@ public class Order {
     private String invoiceReceiverPhone;
 
     /**
-     * 收票人邮箱
+     * 收票人
      */
-    private String invoiceReceiverEmail;
+    private String invoiceReceiver;
 
     /**
      * 订单总额
@@ -252,12 +256,12 @@ public class Order {
         this.invoiceReceiverPhone = invoiceReceiverPhone;
     }
 
-    public String getInvoiceReceiverEmail() {
-        return invoiceReceiverEmail;
+    public String getInvoiceReceiver() {
+        return invoiceReceiver;
     }
 
-    public void setInvoiceReceiverEmail(String invoiceReceiverEmail) {
-        this.invoiceReceiverEmail = invoiceReceiverEmail;
+    public void setInvoiceReceiver(String invoiceReceiver) {
+        this.invoiceReceiver = invoiceReceiver;
     }
 
     public BigDecimal getOrderTotal() {
@@ -450,5 +454,45 @@ public class Order {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", orderNumber='" + orderNumber + '\'' +
+                ", deliveryMethod=" + deliveryMethod +
+                ", receiptStatus=" + receiptStatus +
+                ", trackingNumber='" + trackingNumber + '\'' +
+                ", invoiceTitle='" + invoiceTitle + '\'' +
+                ", invoiceType=" + invoiceType +
+                ", invoiceContent='" + invoiceContent + '\'' +
+                ", invoiceReceiverPhone='" + invoiceReceiverPhone + '\'' +
+                ", invoiceReceiver='" + invoiceReceiver + '\'' +
+                ", orderTotal=" + orderTotal +
+                ", shippingFee=" + shippingFee +
+                ", productTotal=" + productTotal +
+                ", deductionAmount=" + deductionAmount +
+                ", actualPayment=" + actualPayment +
+                ", deliveryTime=" + deliveryTime +
+                ", receiptConfirmTime=" + receiptConfirmTime +
+                ", orderSource=" + orderSource +
+                ", paymentMethod=" + paymentMethod +
+                ", paymentTime=" + paymentTime +
+                ", orderStatus=" + orderStatus +
+                ", receiverName='" + receiverName + '\'' +
+                ", receiverPhone='" + receiverPhone + '\'' +
+                ", receiverZipCode='" + receiverZipCode + '\'' +
+                ", firstLevelReceiverAddress='" + firstLevelReceiverAddress + '\'' +
+                ", secondLevelReceiverAddress='" + secondLevelReceiverAddress + '\'' +
+                ", thirdLevelReceiverAddress='" + thirdLevelReceiverAddress + '\'' +
+                ", fourthLevelReceiverAddress='" + fourthLevelReceiverAddress + '\'' +
+                ", fifthLevelReceiverAddress='" + fifthLevelReceiverAddress + '\'' +
+                ", detailedAddress='" + detailedAddress + '\'' +
+                ", orderNote='" + orderNote + '\'' +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                ", deleted=" + deleted +
+                '}';
     }
 }

@@ -1,12 +1,16 @@
 package com.hf.core.model.entity.order;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * Java entity class for the 'order_detail' table.
  */
-public class OrderDetail {
+public class OrderDetail implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 订单明细ID
      */
@@ -21,6 +25,11 @@ public class OrderDetail {
      * SPU ID
      */
     private long spuId;
+
+    /**
+     * SKU ID
+     */
+    private long skuId;
 
     /**
      * 商品SKU名称
@@ -84,6 +93,14 @@ public class OrderDetail {
         this.spuId = spuId;
     }
 
+    public long getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(long skuId) {
+        this.skuId = skuId;
+    }
+
     public String getSkuName() {
         return skuName;
     }
@@ -138,5 +155,22 @@ public class OrderDetail {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "orderDetailId=" + orderDetailId +
+                ", orderNumber='" + orderNumber + '\'' +
+                ", spuId=" + spuId +
+                ", skuId=" + skuId +
+                ", skuName='" + skuName + '\'' +
+                ", skuPrice=" + skuPrice +
+                ", skuImage='" + skuImage + '\'' +
+                ", purchaseQuantity=" + purchaseQuantity +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                ", deleted=" + deleted +
+                '}';
     }
 }

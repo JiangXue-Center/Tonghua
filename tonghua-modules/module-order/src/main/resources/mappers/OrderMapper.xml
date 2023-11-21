@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hf.ordersystem.mapper.OrderMapper">
+
+    <resultMap id="Order" type="com.hf.core.model.entity.order.Order">
+        <id property="orderId" column="order_id" jdbcType="BIGINT" />
+        <result property="orderNumber" column="order_number" jdbcType="VARCHAR" />
+        <result property="deliveryMethod" column="delivery_method" jdbcType="INTEGER" />
+        <result property="receiptStatus" column="receipt_status" jdbcType="INTEGER" />
+        <result property="trackingNumber" column="tracking_number" jdbcType="VARCHAR" />
+        <result property="invoiceTitle" column="invoice_title" jdbcType="VARCHAR" />
+        <result property="invoiceType" column="invoice_type" jdbcType="INTEGER" />
+        <result property="invoiceContent" column="invoice_content" jdbcType="VARCHAR" />
+        <result property="invoiceReceiverPhone" column="invoice_receiver_phone" jdbcType="VARCHAR" />
+        <result property="invoiceReceiver" column="invoice_receiver" jdbcType="VARCHAR" />
+        <result property="orderTotal" column="order_total" jdbcType="DECIMAL" />
+        <result property="shippingFee" column="shipping_fee" jdbcType="DECIMAL" />
+        <result property="productTotal" column="product_total" jdbcType="DECIMAL" />
+        <result property="deductionAmount" column="deduction_amount" jdbcType="DECIMAL" />
+        <result property="actualPayment" column="actual_payment" jdbcType="DECIMAL" />
+        <result property="deliveryTime" column="delivery_time" jdbcType="TIMESTAMP" />
+        <result property="receiptConfirmTime" column="receipt_confirm_time" jdbcType="TIMESTAMP" />
+        <result property="orderSource" column="order_source" jdbcType="INTEGER" />
+        <result property="paymentMethod" column="payment_method" jdbcType="INTEGER" />
+        <result property="paymentTime" column="payment_time" jdbcType="TIMESTAMP" />
+        <result property="orderStatus" column="order_status" jdbcType="INTEGER" />
+        <result property="receiverName" column="receiver_name" jdbcType="VARCHAR" />
+        <result property="receiverPhone" column="receiver_phone" jdbcType="VARCHAR" />
+        <result property="receiverZipCode" column="receiver_zip_code" jdbcType="VARCHAR" />
+        <result property="firstLevelReceiverAddress" column="first_level_receiver_address" jdbcType="VARCHAR" />
+        <result property="secondLevelReceiverAddress" column="second_level_receiver_address" jdbcType="VARCHAR" />
+        <result property="thirdLevelReceiverAddress" column="third_level_receiver_address" jdbcType="VARCHAR" />
+        <result property="fourthLevelReceiverAddress" column="fourth_level_receiver_address" jdbcType="VARCHAR" />
+        <result property="fifthLevelReceiverAddress" column="fifth_level_receiver_address" jdbcType="VARCHAR" />
+        <result property="detailedAddress" column="detailed_address" jdbcType="VARCHAR" />
+        <result property="orderNote" column="order_note" jdbcType="VARCHAR" />
+        <result property="gmtCreate" column="gmt_create" jdbcType="DATE" />
+        <result property="gmtModify" column="gmt_modify" jdbcType="DATE" />
+        <result property="deleted" column="deleted" jdbcType="BOOLEAN" />
+    </resultMap>
+
+    <insert id="createOrder" parameterType="com.hf.core.model.entity.order.Order">
+        INSERT INTO `order` (
+            order_number, order_source, order_note, order_status, order_total,
+            invoice_title, invoice_content, invoice_type, invoice_receiver_phone, invoice_receiver,
+            delivery_method, shipping_fee, deduction_amount, receiver_phone, receiver_name,
+            first_level_receiver_address, second_level_receiver_address, third_level_receiver_address,
+            fourth_level_receiver_address, fifth_level_receiver_address
+        )
+        VALUES (
+                   #{orderNumber}, #{orderSource}, #{orderNote}, #{orderStatus}, #{orderTotal},
+                   #{invoiceTitle}, #{invoiceContent}, #{invoiceType}, #{invoiceReceiverPhone}, #{invoiceReceiver},
+                   #{deliveryMethod}, #{shippingFee}, #{deductionAmount}, #{receiverPhone}, #{receiverName},
+                   #{firstLevelReceiverAddress}, #{secondLevelReceiverAddress}, #{thirdLevelReceiverAddress},
+                   #{fourthLevelReceiverAddress}, #{fifthLevelReceiverAddress}
+               )
+    </insert>
+
+</mapper>

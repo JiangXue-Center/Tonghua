@@ -16,6 +16,7 @@
         <module>tonghua-modules</module>
         <module>tonghua-api/tonghua-api-system</module>
         <module>tonghua-authorization</module>
+        <module>tonghua-common/common-amqp</module>
     </modules>
 
     <properties>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hf.ordersystem.mapper.OrderDetailMapper">
+
+    <resultMap id="OrderDetail" type="com.hf.core.model.entity.order.OrderDetail">
+        <id property="orderDetailId" column="order_detail_id" jdbcType="BIGINT" />
+        <result property="orderNumber" column="order_number" jdbcType="VARCHAR" />
+        <result property="spuId" column="spu_id" jdbcType="BIGINT" />
+        <result property="skuName" column="sku_name" jdbcType="VARCHAR" />
+        <result property="skuPrice" column="sku_price" jdbcType="DECIMAL" />
+        <result property="skuImage" column="sku_image" jdbcType="VARCHAR" />
+        <result property="purchaseQuantity" column="purchase_quantity" jdbcType="INTEGER" />
+        <result property="gmtCreate" column="gmt_create" jdbcType="DATE" />
+        <result property="gmtModify" column="gmt_modify" jdbcType="DATE" />
+        <result property="deleted" column="deleted" jdbcType="BOOLEAN" />
+    </resultMap>
+
+    <insert id="createOrderDetails" parameterType="java.util.List">
+        INSERT INTO order_detail (
+        order_number, spu_id, sku_name, sku_price, sku_image,
+        purchase_quantity
+        )
+        VALUES
+        <foreach collection="list" item="orderDetail" separator=",">
+            (
+            #{orderDetail.orderNumber},
+            #{orderDetail.spuId},
+            #{orderDetail.skuName},
+            #{orderDetail.skuPrice},
+            #{orderDetail.skuImage},
+            #{orderDetail.purchaseQuantity}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

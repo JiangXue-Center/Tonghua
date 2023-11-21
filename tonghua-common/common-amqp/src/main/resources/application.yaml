@@ -1,0 +1,7 @@
+spring:
+  rabbitmq:
+    host: www.artnecthub.com
+    port: 5672
+    username: hduobao
+    password: tonghua
+    virtual-host: /

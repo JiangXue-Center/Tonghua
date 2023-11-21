@@ -65,6 +65,7 @@ public class LoginServiceImpl implements LoginService {
         checkLoginMethod(method);
         //获取策略模式工厂类并构建登录策略，获取用户信息
         LoginStrategyFactory factory = context.getBean(LoginStrategyFactory.class);
+        //用工厂新建一个类
         LoginStrategy strategy = factory.getLoginStrategy(LoginMethod.fromMethod(method));
         User user = strategy.loginStrategy(certificate, verifyCode);
 
