@@ -1,11 +1,10 @@
-package com.hf.ordersystem.model.dto;
+package com.hf.core.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 public class OrderDTO implements Serializable {

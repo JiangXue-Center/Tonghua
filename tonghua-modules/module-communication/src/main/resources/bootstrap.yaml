@@ -1,0 +1,8 @@
+server:
+  port: 9876
+
+spring:
+  application:
+    name: module-communication
+  profiles:
+    active: prod

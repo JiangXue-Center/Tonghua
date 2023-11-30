@@ -18,6 +18,7 @@
         <module>module-order</module>
         <module>module-artwork</module>
         <module>module-inventory-system</module>
+        <module>module-communication</module>
     </modules>
 
     <properties>

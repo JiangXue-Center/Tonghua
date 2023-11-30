@@ -1,6 +1,10 @@
 package com.hf.cache.configure;
 
 import com.hf.cache.service.RedisService;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -13,16 +17,15 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * redis配置
- * 
+ *
  * @author ruoyi
  */
 @Configuration
 @EnableCaching
 @AutoConfigureBefore(RedisAutoConfiguration.class)
-public class RedisConfig extends CachingConfigurerSupport
-{
+public class RedisConfig extends CachingConfigurerSupport {
     @Bean
-    @SuppressWarnings(value = { "unchecked", "rawtypes" })
+    @SuppressWarnings(value = {"unchecked", "rawtypes"})
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
@@ -46,4 +49,15 @@ public class RedisConfig extends CachingConfigurerSupport
         return new RedisService(redisTemplate);
 
     }
+
+    @Bean
+    public RedissonClient redissonClient() {
+        Config config = new Config();
+        SingleServerConfig singleServerConfig = config.useSingleServer();
+        singleServerConfig.setAddress("redis://www.artnecthub.com:6371");
+        singleServerConfig.setPassword("tencentYun123456");
+        singleServerConfig.setTimeout(3000);
+        return Redisson.create(config);
+    }
+
 }

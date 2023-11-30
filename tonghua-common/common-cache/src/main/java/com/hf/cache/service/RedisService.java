@@ -173,6 +173,22 @@ public class RedisService {
         return redisTemplate.opsForSet().members(key);
     }
 
+
+    public <T> void add2Set(final String key, final T value) {
+        redisTemplate.opsForSet().add(key, value);
+    }
+
+    public <T> boolean isMember(final String key, final T value) {
+        return Boolean.TRUE.equals(redisTemplate.opsForSet().isMember(key, value));
+    }
+
+    public <T> boolean removeFromSet(final String key, final T value) {
+        Long result = redisTemplate.opsForSet().remove(key, value);
+        Optional<Long> optional = Optional.ofNullable(result);
+        return optional.filter(aLong -> aLong > 0).isPresent();
+    }
+
+
     /**
      * 缓存Map
      *

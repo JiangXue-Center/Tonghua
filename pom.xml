@@ -17,6 +17,7 @@
         <module>tonghua-api/tonghua-api-system</module>
         <module>tonghua-authorization</module>
         <module>tonghua-common/common-amqp</module>
+        <module>tonghua-system</module>
     </modules>
 
     <properties>
@@ -40,6 +41,7 @@
         <fastjson.version>2.0.25</fastjson.version>
         <jjwt.version>0.12.3</jjwt.version>
         <auth0.jwt.version>4.4.0</auth0.jwt.version>
+        <seata.version>2.0.0</seata.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -135,12 +137,12 @@
                 <version>${commons.io.version}</version>
             </dependency>
 
-<!--            &lt;!&ndash; JSON 解析器和生成器 &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>com.alibaba.fastjson2</groupId>-->
-<!--                <artifactId>fastjson2</artifactId>-->
-<!--                <version>${fastjson.version}</version>-->
-<!--            </dependency>-->
+            <!-- JSON 解析器和生成器 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
 
             <!-- JWT -->
             <dependency>
@@ -162,6 +164,19 @@
                 <version>${auth0.jwt.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+<!--            <dependency>-->
+<!--                <groupId>io.seata</groupId>-->
+<!--                <artifactId>seata-all</artifactId>-->
+<!--                <version>${seata.version}</version>-->
+<!--            </dependency>-->
+
+
 
 
         </dependencies>
@@ -173,6 +188,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <classifier>osx-aarch_64</classifier>
         </dependency>
 
     </dependencies>

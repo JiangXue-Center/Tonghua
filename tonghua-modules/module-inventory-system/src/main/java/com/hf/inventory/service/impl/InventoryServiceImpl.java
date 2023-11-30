@@ -3,7 +3,9 @@ package com.hf.inventory.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hf.cache.service.RedisLock;
 import com.hf.cache.service.RedisService;
+import com.hf.core.exception.ParamException;
 import com.hf.core.model.entity.inventory.*;
 import com.hf.core.model.entity.order.Order;
 import com.hf.core.model.entity.order.OrderDetail;
@@ -17,6 +19,8 @@ import com.hf.inventory.mapper.SkuMapper;
 import com.hf.inventory.mapper.SpuMapper;
 import com.hf.inventory.model.vo.SpuIndexVO;
 import com.hf.inventory.service.InventoryService;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +31,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.hf.amqp.constants.MQConstants.ORDER_INVENTORY_QUEUE;
-import static com.hf.inventory.constants.RedisConstants.PRODUCT_INVENTORY_KEY;
-import static com.hf.inventory.constants.RedisConstants.PRODUCT_INVENTORY_TTL;
+import static com.hf.inventory.constants.RedisConstants.*;
 import static com.hf.minio.constant.MinIOConstant.*;
 
 @Service
@@ -54,6 +57,9 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Autowired
     private RedisService redisService;
+
+    @Autowired
+    private RedissonClient redissonClient;
     
     @Override
     public List<SpuIndexVO> selectSpuIndexVOByKeyword(String keyword) {
@@ -129,6 +135,31 @@ public class InventoryServiceImpl implements InventoryService {
             return spuIndexVO;
         }).collect(Collectors.toList());
         return spuIndexVOS;
+    }
+
+    @Override
+    public boolean updateStock(Long skuId, Integer num) {
+        if (skuId == null || skuId < 0) {
+            throw new ParamException();
+        }
+        String key = LOCK_STOCK_KEY + skuId;
+        RLock lock = RedisLock.getLock(redissonClient, key);
+        Integer result = 0;
+        try {
+            // 尝试加锁，最多等待100秒，锁的过期时间设置为30秒
+            boolean isLocked = lock.tryLock(LOCK_MAX_WAIT_TIME, LOCK_EXPIRE_TTL, java.util.concurrent.TimeUnit.SECONDS);
+
+            if (isLocked) {
+                // 执行需要加锁的业务逻辑
+                result = skuMapper.updateStockBySkuId(skuId, num);
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            // 释放锁
+            lock.unlock();
+        }
+        return result > 0;
     }
 
     @RabbitListener(queues = ORDER_INVENTORY_QUEUE)

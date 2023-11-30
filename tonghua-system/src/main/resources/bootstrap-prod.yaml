@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.87.188:8848
+        namespace: d04d7486-88d9-4f62-bbe5-f682376eba03
+      config:
+        server-addr: 192.168.87.188:8848
+        file-extension: yaml
+        namespace: d04d7486-88d9-4f62-bbe5-f682376eba03
+
+seata:
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 192.168.87.188:8848
+      namespace: d04d7486-88d9-4f62-bbe5-f682376eba03
+      group: DEFAULT_GROUP
+      application: seata-tc-server
+      username: nacos
+      password: nacos
+  tx-service-group: biz
+  service:
+    vgroup-mapping:
+      default: DEFAULT
+      biz: DEFAULT

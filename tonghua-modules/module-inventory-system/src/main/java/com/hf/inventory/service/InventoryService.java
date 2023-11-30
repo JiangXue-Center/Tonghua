@@ -12,4 +12,6 @@ public interface InventoryService {
     Map<String, Object> selectSpuDetailById(Long productId) throws JsonProcessingException;
 
     List<SpuIndexVO> recommandeSpuIndexPage(String id, Integer offset, Integer size);
+
+    boolean updateStock(Long skuId, Integer num);
 }

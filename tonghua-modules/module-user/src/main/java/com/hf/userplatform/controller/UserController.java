@@ -47,5 +47,11 @@ public class UserController {
         return Result.success(map);
     }
 
+    @PutMapping("/fans/{userId}")
+    public Result<String> follow(@PathVariable("userId") String userId) {
+        String result = userService.followUser(userId);
+        return Result.success(result);
+    }
+
 
 }

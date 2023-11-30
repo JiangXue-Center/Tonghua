@@ -24,6 +24,17 @@ public interface RedisConstant {
 
     public static final String REGISTER_PHONE_TOKEN_KEY = "register:phone:token:";
 
+    public static final String ORDER_PAY_INFO_KEY = "pay:info:";
+
+    public static final Long ORDER_PAY_INFO_TTL = 30L;
+
+    public static final String ONLINE_USER_SET_KEY = "tonghua:online:set";
+
+    public static final String ONLINE_USER_KEY = "tonghua:online:user:";
+
+    public static final String USER_FOLLOW_KEY = "tonghua:user:follow:";
+
+    public static final String USER_FANS_KEY = "tonghua:user:fans:";
 
 
 }

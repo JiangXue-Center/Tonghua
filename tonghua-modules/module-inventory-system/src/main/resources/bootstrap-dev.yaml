@@ -8,3 +8,6 @@ spring:
         server-addr: www.hf-hdb.cn:28848
         namespace: d04d7486-88d9-4f62-bbe5-f682376eba03
         file-extension: yaml
+
+seata:
+  tx-service-group: default

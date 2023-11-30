@@ -46,8 +46,14 @@ public class AuthFilter implements GlobalFilter, Ordered {
             "/auth/login",
             "/auth/code",
             "/auth/check",
-            "/auth/register"
+            "/auth/register",
+            "/pay/alipay",
+            "/pay/notify",
+            "/pay/return"
     );
+
+    private static final String SOCKJS_PREFIX = "/communication";
+
 
     @Autowired
     private RedisService redisService;
@@ -59,6 +65,10 @@ public class AuthFilter implements GlobalFilter, Ordered {
                 .flatMap(serverHttpRequest -> {
                     String path = serverHttpRequest.getPath().toString();
                     logger.info("请求的路径path: {}", path);
+                    if (path.startsWith(SOCKJS_PREFIX)) {
+                        logger.info("path: {}, 请求为sockjs, 无需校验身份", path);
+                        return chain.filter(exchange);
+                    }
                     if (EXCLUDE_PATH.stream().anyMatch(path::contains)) {
                         logger.info("path: {} 无需登录 ", path);
                         return chain.filter(exchange);
@@ -93,7 +103,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 0;
+        return 10002;
     }
 
     private Mono<Void> buildLoginResponse(ServerWebExchange exchange) {

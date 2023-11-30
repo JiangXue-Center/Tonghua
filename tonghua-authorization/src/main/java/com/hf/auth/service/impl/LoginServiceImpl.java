@@ -18,7 +18,7 @@ import com.hf.core.model.entity.user.User;
 import com.hf.core.utils.EncryptionUtil;
 import com.hf.core.utils.JwtUtil;
 import com.hf.core.utils.SpringBeanContext;
-import com.hf.system.api.RemoteUserService;
+import com.hf.apisystem.api.RemoteUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

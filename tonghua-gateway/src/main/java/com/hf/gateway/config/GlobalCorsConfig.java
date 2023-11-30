@@ -2,29 +2,77 @@ package com.hf.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsUtils;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilter;
+import org.springframework.web.server.WebFilterChain;
+import reactor.core.publisher.Mono;
 
 @Configuration
 public class GlobalCorsConfig {
 
+//    @Bean
+//    public CorsWebFilter corsWebFilter() {
+//        CorsConfiguration config = new CorsConfiguration();
+//        // 这里仅为了说明问题，配置为放行所有域名，生产环境请对此进行修改
+//        config.addAllowedOrigin("*");
+//        // 放行的请求头
+//        config.addAllowedHeader("*");
+//        // 放行的请求方式，主要有：GET, POST, PUT, DELETE, OPTIONS
+//        config.addAllowedMethod("*");
+//        // 暴露头部信息
+//        config.addExposedHeader("*");
+//        // 是否发送cookie
+//        config.setAllowCredentials(true);
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", config);
+//        return new CorsWebFilter(source);
+//    }
+
     @Bean
-    public CorsWebFilter corsWebFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        // 这里仅为了说明问题，配置为放行所有域名，生产环境请对此进行修改
-        config.addAllowedOrigin("*");
-        // 放行的请求头
-        config.addAllowedHeader("*");
-        // 放行的请求方式，主要有：GET, POST, PUT, DELETE, OPTIONS
-        config.addAllowedMethod("*"); 
-        // 暴露头部信息
-        config.addExposedHeader("*"); 
-        // 是否发送cookie
-        config.setAllowCredentials(true); 
-        
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return new CorsWebFilter(source);
+    public WebFilter corsFilter() {
+        return (ServerWebExchange ctx, WebFilterChain chain) -> {
+            System.out.println("CORS Filter invoked for request: " + ctx.getRequest().getURI());
+            ServerHttpRequest request = ctx.getRequest();
+
+            String ignorePathPrefix = "/communication";
+            // 检查请求路径是否需要忽略跨域处理
+            if (request.getURI().getPath().startsWith(ignorePathPrefix)) {
+                // 如果是需要忽略的路径，则直接放行
+                return chain.filter(ctx);
+            }
+
+            // 使用SpringMvc自带的跨域检测工具类判断当前请求是否跨域
+            if (!CorsUtils.isCorsRequest(request)) {
+                return chain.filter(ctx);
+            }
+            HttpHeaders requestHeaders = request.getHeaders();                                  // 获取请求头
+            ServerHttpResponse response = ctx.getResponse();                                    // 获取响应对象
+            HttpMethod requestMethod = requestHeaders.getAccessControlRequestMethod();          // 获取请求方式对象
+            HttpHeaders headers = response.getHeaders();                                        // 获取响应头
+            headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, requestHeaders.getOrigin());   // 把请求头中的请求源（协议+ip+端口）添加到响应头中（相当于yml中的allowedOrigins）
+            headers.addAll(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, requestHeaders.getAccessControlRequestHeaders());
+            if (requestMethod != null) {
+                headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, requestMethod.name());    // 允许被响应的方法（GET/POST等，相当于yml中的allowedMethods）
+            }
+            headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");       // 允许在请求中携带cookie（相当于yml中的allowCredentials）
+            headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "*");             // 允许在请求中携带的头信息（相当于yml中的allowedHeaders）
+            headers.add(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "18000L");               // 本次跨域检测的有效期(单位毫秒，相当于yml中的maxAge)
+            if (request.getMethod() == HttpMethod.OPTIONS) {                                    // 直接给option请求反回结果
+                response.setStatusCode(HttpStatus.OK);
+                return Mono.empty();
+            }
+            return chain.filter(ctx);                                                           // 不是option请求则放行
+        };
     }
+
 }

@@ -1,4 +1,4 @@
-package com.hf.system.api;
+package com.hf.apisystem.api;
 
 import com.hf.core.model.entity.user.User;
 import org.springframework.cloud.openfeign.FeignClient;

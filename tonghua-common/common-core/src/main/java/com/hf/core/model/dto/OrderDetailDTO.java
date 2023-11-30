@@ -1,4 +1,4 @@
-package com.hf.ordersystem.model.dto;
+package com.hf.core.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -16,4 +16,6 @@ public interface SkuMapper {
 
     Integer selectStockBySkuId(@Param("skuId") long skuId);
 
+    Integer updateStockBySkuId(@Param("skuId") long skuId, @Param("num") int num);
+
 }

@@ -43,4 +43,10 @@ public class InventoryController {
         return Result.success(spuIndexVOS);
     }
 
+    @PutMapping("stock")
+    public Result updateStock(@RequestParam("skuId") Long skuId, @RequestParam("num") Integer num) {
+        boolean b = inventoryService.updateStock(skuId, num);
+        return Result.success(b);
+    }
+
 }

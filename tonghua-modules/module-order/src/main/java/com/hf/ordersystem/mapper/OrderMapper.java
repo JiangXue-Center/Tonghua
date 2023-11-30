@@ -8,4 +8,6 @@ public interface OrderMapper {
 
     public int createOrder(Order order);
 
+    public int updateOrderStatusByOrderNumber(String orderNumber);
+
 }

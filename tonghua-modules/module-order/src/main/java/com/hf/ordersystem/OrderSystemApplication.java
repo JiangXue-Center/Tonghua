@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@Import(com.hf.amqp.config.AMQPConfig.class)
+@Import({com.hf.amqp.config.AMQPConfig.class,
+        com.hf.cache.configure.RedisConfig.class})
 public class OrderSystemApplication {
 
     public static void main(String[] args) {

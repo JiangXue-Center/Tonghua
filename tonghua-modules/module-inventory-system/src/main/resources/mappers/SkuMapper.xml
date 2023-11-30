@@ -48,5 +48,12 @@
         where sku_id = #{skuId}
     </select>
 
+    <update id="updateStockBySkuId">
+        update tonghua_inventory_system.stock_keeping_unit
+        set `stock` = `stock` - #{num}
+        where sku_id = #{skuId}
+    </update>
+
+
 
 </mapper>

@@ -14,4 +14,6 @@ public interface UserService {
     Map<String, String> bindEmail(String email, String code);
 
     Map<String, String> bindPhone(String phone, String code);
+
+    String followUser(String userId);
 }
