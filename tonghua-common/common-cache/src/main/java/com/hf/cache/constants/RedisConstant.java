@@ -36,5 +36,9 @@ public interface RedisConstant {
 
     public static final String USER_FANS_KEY = "tonghua:user:fans:";
 
+    public static final String USER_MESSAGE_LIST_KEY = "tonghua:message:list:";
+
+    public static final Long USER_MESSAGE_LIST_TTL = 10L;
+
 
 }

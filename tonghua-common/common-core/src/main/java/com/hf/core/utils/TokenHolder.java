@@ -1,4 +1,4 @@
-package com.hf.userplatform.utils;
+package com.hf.core.utils;
 
 public class TokenHolder {
 

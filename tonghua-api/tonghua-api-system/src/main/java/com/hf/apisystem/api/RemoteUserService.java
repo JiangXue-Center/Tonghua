@@ -2,10 +2,10 @@ package com.hf.apisystem.api;
 
 import com.hf.core.model.entity.user.User;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 @FeignClient(contextId = "remoteUserService", value = "module-userplatform")
 public interface RemoteUserService {
@@ -18,5 +18,8 @@ public interface RemoteUserService {
 
     @PostMapping("/user/register")
     public Boolean registerUser(@RequestBody User user);
+
+    @PostMapping("/user/simpleList")
+    public List<User> selectSimpleUsers(@RequestBody Set<String> userIds);
 
 }

@@ -1,11 +1,10 @@
-package com.hf.userplatform.interceptor;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+package com.hf.communication.interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import com.hf.core.utils.JwtUtil;
 import com.hf.core.utils.TokenHolder;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

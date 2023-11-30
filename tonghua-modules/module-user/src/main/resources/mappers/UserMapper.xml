@@ -48,6 +48,14 @@
         or email = #{email}
     </select>
 
+    <select id="selectSimpleListByIds" resultType="com.hf.core.model.entity.user.User">
+        select id, avatar_url, username from user
+        where id in
+        <foreach collection="userIds" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </select>
+
     <insert id="register">
         insert into user(id, phone_number, email, salt, password, username)
         values (#{id}, #{phoneNumber}, #{email}, #{salt}, #{password}, #{username})

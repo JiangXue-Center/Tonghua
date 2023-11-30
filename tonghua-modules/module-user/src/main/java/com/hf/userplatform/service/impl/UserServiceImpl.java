@@ -7,14 +7,16 @@ import com.hf.core.model.entity.user.User;
 import com.hf.core.utils.PatternUtil;
 import com.hf.userplatform.mapper.UserMapper;
 import com.hf.userplatform.service.UserService;
-import com.hf.userplatform.utils.TokenHolder;
+import com.hf.core.utils.TokenHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static com.hf.cache.constants.RedisConstant.*;
 import static com.hf.core.enums.ExceptionEnums.USER_EXIST_ERROR;
@@ -116,4 +118,15 @@ public class UserServiceImpl implements UserService {
         redisService.add2Set(fansKey, id);
         return "关注成功";
     }
+
+    @Override
+    public List<User> selectSimpleUsers(Set<String> userIds) {
+        if (userIds.isEmpty()) {
+            throw new ParamException("用户Id集合为空 ");
+        }
+        List<User> users = userMapper.selectSimpleListByIds(userIds);
+        logger.info("selectSimpleUser查询结果为 {}", users);
+        return users;
+    }
+
 }

@@ -2,7 +2,9 @@ package com.hf.userplatform.service;
 
 import com.hf.core.model.entity.user.User;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface UserService {
     User selectUserByEmail(String email);
@@ -16,4 +18,7 @@ public interface UserService {
     Map<String, String> bindPhone(String phone, String code);
 
     String followUser(String userId);
+
+    List<User> selectSimpleUsers(Set<String> userIds);
+
 }

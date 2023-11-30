@@ -7,7 +7,9 @@ import com.hf.userplatform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
@@ -51,6 +53,11 @@ public class UserController {
     public Result<String> follow(@PathVariable("userId") String userId) {
         String result = userService.followUser(userId);
         return Result.success(result);
+    }
+
+    @PostMapping("/simpleList")
+    public List<User> selectSimpleUser(@RequestBody Set<String> userIds) {
+        return userService.selectSimpleUsers(userIds);
     }
 
 
