@@ -6,7 +6,6 @@ import com.hf.core.model.dto.OrderDetailDTO;
 import com.hf.apisystem.api.RemoteInventoryService;
 import com.hf.apisystem.api.RemoteOrderService;
 import com.hf.tonghuasystem.service.BusinessService;
-import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +29,6 @@ public class BusinessServiceImpl implements BusinessService {
     private RabbitMQService rabbitMQService;
 
     @Override
-    @GlobalTransactional
     public String submitOrder(OrderDTO orderDTO) {
         String orderNumber = remoteOrderService.submitOrder(orderDTO);
         List<OrderDetailDTO> orderDetailDTOs = orderDTO.getOrderDetailDTOs();

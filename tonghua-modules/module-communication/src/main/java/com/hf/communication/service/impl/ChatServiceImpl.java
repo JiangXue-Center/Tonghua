@@ -11,7 +11,7 @@ import com.hf.communication.model.entity.ChatMessage;
 import com.hf.communication.model.vo.MessageListItemVO;
 import com.hf.communication.model.vo.MessageVO;
 import com.hf.communication.service.ChatService;
-import com.hf.core.model.entity.user.User;
+import com.hf.core.model.vo.SimpleUser;
 import com.hf.core.utils.JwtUtil;
 import com.hf.core.utils.TokenHolder;
 import org.slf4j.Logger;
@@ -98,20 +98,23 @@ public class ChatServiceImpl implements ChatService {
         logger.info("查询结果 {}", chatMessages);
         long count = mongoTemplate.count(query, ChatMessage.class);
 
+        //todo 异步将本页所有的消息设置为已读状态
         return new PageImpl<>(chatMessages, pageable, count);
     }
 
     @Override
     public List<MessageListItemVO> findMessageList() {
+        //获取用户id以redis中用户的消息列表
         String userId = TokenHolder.get();
         String key = USER_MESSAGE_LIST_KEY + userId;
         Set<String> set = redisService.getCacheSet(key);
-        List<User> users = remoteUserService.selectSimpleUsers(set);
+        List<SimpleUser> users = remoteUserService.selectSimpleUsers(set);
         List<MessageListItemVO> messageListVOS = new ArrayList<>();
-        for (User friend : users) {
+        for (SimpleUser friend : users) {
+            //设置查询条件为发送者或接受者为双方id
             Criteria criteria = new Criteria().orOperator(
-                    Criteria.where("sender").is(userId).and("receiver").is(friend.getId()),
-                    Criteria.where("sender").is(friend.getId()).and("receiver").is(userId)
+                    Criteria.where("sender").is(userId).and("receiver").is(friend.getUserId()),
+                    Criteria.where("sender").is(friend.getUserId()).and("receiver").is(userId)
             );
             Query query = new Query(criteria);
             query.with(Sort.by(Sort.Direction.DESC, "messageTime"));
@@ -119,13 +122,16 @@ public class ChatServiceImpl implements ChatService {
 
             List<ChatMessage> messages = mongoTemplate.find(query, ChatMessage.class);
 
-            long count = countUnreadMessages(userId, friend.getId());
+            //获取与某一好友的未读消息数量
+            int count = countUnreadMessages(userId, friend.getUserId());
+            //设置消息列表项的信息
             MessageListItemVO messageListItemVO = new MessageListItemVO();
-            messageListItemVO.setUserId(friend.getId());
+            messageListItemVO.setUserId(friend.getUserId());
             messageListItemVO.setUsername(friend.getUsername());
             messageListItemVO.setAvatar(friend.getAvatarUrl());
-            messageListItemVO.setNotReadMessageNumber((int) count);
+            messageListItemVO.setUnReadMessageNumber(count);
 
+            //获取与好友最新的一条聊天记录
             ChatMessage lastMessage = messages.getFirst();
             MessageVO messageVO = new MessageVO();
             messageVO.setContent(lastMessage.getContent());
@@ -136,19 +142,20 @@ public class ChatServiceImpl implements ChatService {
             messageListItemVO.setLastMessage(messageVO);
             messageListItemVO.setLastMessageTime(new Date(lastMessage.getMessageTime()));
 
+            //将消息列表项加入列表中
             messageListVOS.add(messageListItemVO);
         }
         return messageListVOS;
     }
 
-    public long countUnreadMessages(String userId, String friendId) {
+    public int countUnreadMessages(String userId, String friendId) {
         Criteria criteria = new Criteria().andOperator(
                 Criteria.where("sender").is(friendId).and("receiver").is(userId),
                 Criteria.where("status").is("NOT_READ")
         );
 
         Query query = new Query(criteria);
-        return mongoTemplate.count(query, ChatMessage.class);
+        return (int) mongoTemplate.count(query, ChatMessage.class);
     }
 
 }

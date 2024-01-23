@@ -1,6 +1,7 @@
 package com.hf.userplatform.mapper;
 
 import com.hf.core.model.entity.user.User;
+import com.hf.core.model.vo.SimpleUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,7 +23,7 @@ public interface UserMapper {
 
     String selectByPhoneOrEmail(String phone, String email);
 
-    List<User> selectSimpleListByIds(@Param("userIds") Set<String> userIds);
+    List<SimpleUser> selectSimpleListByIds(@Param("userIds") Set<String> userIds);
 
 
 

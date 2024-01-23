@@ -2,9 +2,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.87.188:8848
-        namespace: d04d7486-88d9-4f62-bbe5-f682376eba03
+        server-addr: 159.75.156.115:8848
+        namespace: 68466701-20df-41f5-9fe9-5cdb16d9dc80
       config:
-        server-addr: 192.168.87.188:8848
+        server-addr: 159.75.156.115:8848
+        namespace: 68466701-20df-41f5-9fe9-5cdb16d9dc80
         file-extension: yaml
-        namespace: d04d7486-88d9-4f62-bbe5-f682376eba03
+

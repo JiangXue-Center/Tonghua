@@ -3,7 +3,9 @@ package com.hf.userplatform.controller;
 
 import com.hf.core.model.Result;
 import com.hf.core.model.entity.user.User;
+import com.hf.core.model.vo.SimpleUser;
 import com.hf.userplatform.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,8 +58,18 @@ public class UserController {
     }
 
     @PostMapping("/simpleList")
-    public List<User> selectSimpleUser(@RequestBody Set<String> userIds) {
+    public List<SimpleUser> selectSimpleUser(@RequestBody Set<String> userIds) {
         return userService.selectSimpleUsers(userIds);
+    }
+
+    @GetMapping("/follows")
+    public Result<List<SimpleUser>> selectFollows(HttpServletRequest request) {
+        return Result.success(userService.selectFriends(request.getServletPath()));
+    }
+
+    @GetMapping("/fans")
+    public Result<List<SimpleUser>> selectFans(HttpServletRequest request) {
+        return Result.success(userService.selectFriends(request.getServletPath()));
     }
 
 

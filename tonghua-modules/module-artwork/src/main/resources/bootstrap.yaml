@@ -5,7 +5,7 @@ spring:
   application:
     name: module-artwork
   profiles:
-    active: prod
+    active: dev
   servlet:
     multipart:
       max-file-size: 10MB

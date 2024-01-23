@@ -1,0 +1,8 @@
+server:
+  port: 7797
+
+spring:
+  application:
+    name: module-painting
+  profiles:
+    active: prod

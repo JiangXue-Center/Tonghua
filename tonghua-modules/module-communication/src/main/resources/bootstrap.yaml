@@ -5,4 +5,4 @@ spring:
   application:
     name: module-communication
   profiles:
-    active: prod
+    active: dev

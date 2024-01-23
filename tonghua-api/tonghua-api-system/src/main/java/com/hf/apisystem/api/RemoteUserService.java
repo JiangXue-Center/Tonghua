@@ -1,6 +1,7 @@
 package com.hf.apisystem.api;
 
 import com.hf.core.model.entity.user.User;
+import com.hf.core.model.vo.SimpleUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,6 @@ public interface RemoteUserService {
     public Boolean registerUser(@RequestBody User user);
 
     @PostMapping("/user/simpleList")
-    public List<User> selectSimpleUsers(@RequestBody Set<String> userIds);
+    public List<SimpleUser> selectSimpleUsers(@RequestBody Set<String> userIds);
 
 }

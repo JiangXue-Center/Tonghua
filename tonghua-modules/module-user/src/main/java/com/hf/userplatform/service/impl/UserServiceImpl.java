@@ -4,19 +4,18 @@ import cn.hutool.core.util.StrUtil;
 import com.hf.cache.service.RedisService;
 import com.hf.core.exception.*;
 import com.hf.core.model.entity.user.User;
+import com.hf.core.model.vo.SimpleUser;
 import com.hf.core.utils.PatternUtil;
 import com.hf.userplatform.mapper.UserMapper;
 import com.hf.userplatform.service.UserService;
 import com.hf.core.utils.TokenHolder;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static com.hf.cache.constants.RedisConstant.*;
 import static com.hf.core.enums.ExceptionEnums.USER_EXIST_ERROR;
@@ -120,13 +119,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> selectSimpleUsers(Set<String> userIds) {
+    public List<SimpleUser> selectSimpleUsers(Set<String> userIds) {
         if (userIds.isEmpty()) {
-            throw new ParamException("用户Id集合为空 ");
+//            throw new ParamException("用户Id集合为空 ");
+            return Collections.emptyList();
         }
-        List<User> users = userMapper.selectSimpleListByIds(userIds);
-        logger.info("selectSimpleUser查询结果为 {}", users);
-        return users;
+        List<SimpleUser> simpleUsers = userMapper.selectSimpleListByIds(userIds);
+        logger.info("selectSimpleUser查询结果为 {}", simpleUsers);
+        return simpleUsers;
+    }
+
+    @Override
+    public List<SimpleUser> selectFriends(String path) {
+        logger.info("请求路径为 {}", path);
+        String userId = TokenHolder.get();
+        String key = "";
+        if (path.endsWith("follows")) {
+            key = USER_FOLLOW_KEY + userId;
+        } else {
+            key = USER_FANS_KEY + userId;
+        }
+        Set<String> followIds = redisService.getCacheSet(key);
+        List<SimpleUser> simpleUsers = userMapper.selectSimpleListByIds(followIds);
+        logger.info("selectFriends查询结果为 {}", simpleUsers);
+        return simpleUsers;
     }
 
 }

@@ -1,6 +1,8 @@
 package com.hf.userplatform.service;
 
 import com.hf.core.model.entity.user.User;
+import com.hf.core.model.vo.SimpleUser;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,8 @@ public interface UserService {
 
     String followUser(String userId);
 
-    List<User> selectSimpleUsers(Set<String> userIds);
+    List<SimpleUser> selectSimpleUsers(Set<String> userIds);
+
+    List<SimpleUser> selectFriends(String path);
 
 }

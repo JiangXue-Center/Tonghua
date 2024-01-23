@@ -55,6 +55,7 @@
         WHERE p.sub_title LIKE CONCAT('%', #{keyword}, '%')
         OR p.product_name LIKE CONCAT('%', #{keyword}, '%')
     </select>
+
     <select id="selectSpuById" resultMap="BaseResultMap">
         select
             <include refid="Base_Column_List" />

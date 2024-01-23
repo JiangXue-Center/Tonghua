@@ -11,7 +11,7 @@ public class MessageListItemVO implements Serializable {
 
     private String avatar;
 
-    private Integer notReadMessageNumber;
+    private Integer unReadMessageNumber;
 
     private MessageVO lastMessage;
 
@@ -41,12 +41,12 @@ public class MessageListItemVO implements Serializable {
         this.avatar = avatar;
     }
 
-    public Integer getNotReadMessageNumber() {
-        return notReadMessageNumber;
+    public Integer getUnReadMessageNumber() {
+        return unReadMessageNumber;
     }
 
-    public void setNotReadMessageNumber(Integer notReadMessageNumber) {
-        this.notReadMessageNumber = notReadMessageNumber;
+    public void setUnReadMessageNumber(Integer notReadMessageNumber) {
+        this.unReadMessageNumber = notReadMessageNumber;
     }
 
     public MessageVO getLastMessage() {

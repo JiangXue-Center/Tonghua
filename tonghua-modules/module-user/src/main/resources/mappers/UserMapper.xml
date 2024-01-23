@@ -19,6 +19,12 @@
         <result property="deleted" column="deleted" javaType="INTEGER" />
     </resultMap>
 
+    <resultMap id="SimpleUser" type="com.hf.core.model.vo.SimpleUser">
+        <id property="userId" column="id" jdbcType="VARCHAR"/>
+        <result property="avatarUrl" column="avatar_url" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+    </resultMap>
+
 
     <sql id="Base_Column_List">
         id, a_id, phone_number, email, salt, password, avatar_url,
@@ -48,7 +54,7 @@
         or email = #{email}
     </select>
 
-    <select id="selectSimpleListByIds" resultType="com.hf.core.model.entity.user.User">
+    <select id="selectSimpleListByIds" resultMap="SimpleUser">
         select id, avatar_url, username from user
         where id in
         <foreach collection="userIds" item="userId" open="(" separator="," close=")">

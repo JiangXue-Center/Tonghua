@@ -5,4 +5,4 @@ spring:
   application:
     name: module-order-system
   profiles:
-    active: prod
+    active: dev
