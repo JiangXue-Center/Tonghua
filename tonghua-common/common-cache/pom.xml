@@ -8,7 +8,7 @@
         <artifactId>tonghua-common</artifactId>
         <version>0.0.1</version>
     </parent>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <artifactId>common-cache</artifactId>
 

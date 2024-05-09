@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>tonghua-api</artifactId>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

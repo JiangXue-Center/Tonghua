@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    public ResponseEntity<Result> runtimeExceptionHandler(HttpServletRequest req, RuntimeException e) {
+    public ResponseEntity<Result<Object>> runtimeExceptionHandler(HttpServletRequest req, RuntimeException e) {
         logger.error("运行时异常: ", e);
         return new ResponseEntity<>(Result.fail(""), HttpStatus.INTERNAL_SERVER_ERROR);
     }
