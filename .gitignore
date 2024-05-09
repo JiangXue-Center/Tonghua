@@ -43,4 +43,4 @@ build/
 ### VS Code ###
 .vscode/
 
-application-dev.yaml
+bootstrap-dev.yaml
