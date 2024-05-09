@@ -58,7 +58,7 @@ public class Result<T> implements Serializable {
     }
 
     private static <T> Result<T> rest(String message, int code, T data) {
-        Result<T> result = new Result<T>();
+        Result<T> result = new Result<>();
         result.setMessage(message);
         result.setCode(code);
         result.setData(data);

@@ -80,6 +80,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
                     }
 
                     String accessToken = Iterables.getOnlyElement(list);
+                    
                     if (!JwtUtil.verifyToken(accessToken)) {
                         throw new AuthException(TOKEN_VERIFY_ERROR);
                     }
