@@ -5,4 +5,4 @@ spring:
   application:
     name: module-painting
   profiles:
-    active: prod
+    active: dev
