@@ -1,9 +1,18 @@
 package com.hf.communication.model.dto;
 
 public class Message {
+
+    //消息内容
     private String content;
+
+    //发送者
     private String sender;
+
+    //接收者
     private String recipient;
+
+    //消息类型
+    private String type;
 
     // 构造方法、getter和setter等
 
@@ -33,12 +42,21 @@ public class Message {
         this.recipient = recipient;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
                 "content='" + content + '\'' +
                 ", sender='" + sender + '\'' +
                 ", recipient='" + recipient + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

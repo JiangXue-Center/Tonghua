@@ -99,7 +99,11 @@ public class InventoryServiceImpl implements InventoryService {
                 Stream.concat(smap.keySet().stream(), gmap.keySet().stream())
                         .collect(Collectors.toSet()));
         //6.查询所有参数组的信息
-        List<SpecGroup> groups = spuDetailMapper.selectSpecGroup(SpuDetailUtil.getGroupIds(params));
+        List<Long> groupIds = SpuDetailUtil.getGroupIds(params);
+        if (groupIds.isEmpty()) {
+            return new HashMap<>();
+        }
+        List<SpecGroup> groups = spuDetailMapper.selectSpecGroup(groupIds);
         //7.拼装成商品详情的对象
         SpuDetailVO spuDetailVo = SpuDetailUtil.createSpuDetailVo(
                 spuDetail, SpuDetailUtil.createSpecialMap(smap, params),

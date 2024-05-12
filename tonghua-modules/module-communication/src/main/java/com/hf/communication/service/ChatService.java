@@ -12,7 +12,7 @@ public interface ChatService {
 
 //    void saveOfflineMessage(Message message, MessageType type);
 
-    void saveMessage(Message message, MessageType type);
+    void saveMessage(Message message, String type);
 
     Page<ChatMessage> findPrivateMessages(String userId, int offset, int size);
 

@@ -59,14 +59,16 @@ public class ChatServiceImpl implements ChatService {
 //    }
 
     @Override
-    public void saveMessage(Message message, MessageType type) {
+    public void saveMessage(Message message, String type) {
+//        String sender = message.getSender();
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setContent(message.getContent());
         chatMessage.setReceiver(message.getRecipient());
         DecodedJWT tokenInfo = JwtUtil.getTokenInfo(message.getSender());
         String userId = tokenInfo.getClaim("id").asString();
         chatMessage.setSender(userId);
-        chatMessage.setType(type);
+        //todo 将相对应的类型消息做处理
+        chatMessage.setType(MessageType.valueOf(type.toUpperCase()));
         chatMessage.setStatus(MessageStatus.NOT_READ);
         long l = new Date().getTime();
         chatMessage.setMessageTime(l);

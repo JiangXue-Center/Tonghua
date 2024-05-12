@@ -6,6 +6,7 @@ import com.hf.core.exception.*;
 import com.hf.core.model.entity.user.User;
 import com.hf.core.model.vo.SimpleUser;
 import com.hf.core.utils.PatternUtil;
+import com.hf.minio.service.MinIOService;
 import com.hf.userplatform.mapper.UserMapper;
 import com.hf.userplatform.service.UserService;
 import com.hf.core.utils.TokenHolder;
@@ -32,6 +33,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RedisService redisService;
+
+    @Autowired
+    private MinIOService minIOService;
+
 
     @Override
     public User selectUserByEmail(String email) {
@@ -140,7 +145,16 @@ public class UserServiceImpl implements UserService {
             key = USER_FANS_KEY + userId;
         }
         Set<String> followIds = redisService.getCacheSet(key);
+        if (followIds.isEmpty()) {
+            logger.info("用户" + userId + "的关注或粉丝列表为空");
+            return Collections.emptyList();
+        }
         List<SimpleUser> simpleUsers = userMapper.selectSimpleListByIds(followIds);
+        for (SimpleUser simpleUser : simpleUsers) {
+            String originalAvatarUrl = simpleUser.getAvatarUrl();
+            String avatarUrl = minIOService.path2Link(originalAvatarUrl);
+            simpleUser.setAvatarUrl(avatarUrl);
+        }
         logger.info("selectFriends查询结果为 {}", simpleUsers);
         return simpleUsers;
     }

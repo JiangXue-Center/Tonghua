@@ -35,7 +35,7 @@ public class ChatController {
 //        String senderUsername = principal.getName();
         String recipientUserId = message.getRecipient();
         // 处理消息，可以根据需要存储到数据库，然后发送给指定用户
-        chatService.saveMessage(message, MessageType.TEXT);
+        chatService.saveMessage(message, message.getType());
         // 例如，将消息发送给指定用户的方法
         if (redisService.isMember(ONLINE_USER_SET_KEY, recipientUserId)) {
             messagingTemplate.convertAndSendToUser(message.getRecipient(), "/messages", message.getContent());

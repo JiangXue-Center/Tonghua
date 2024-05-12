@@ -62,11 +62,13 @@ public class UserController {
         return userService.selectSimpleUsers(userIds);
     }
 
+    //
     @GetMapping("/follows")
     public Result<List<SimpleUser>> selectFollows(HttpServletRequest request) {
         return Result.success(userService.selectFriends(request.getServletPath()));
     }
 
+    //查询好友列表
     @GetMapping("/fans")
     public Result<List<SimpleUser>> selectFans(HttpServletRequest request) {
         return Result.success(userService.selectFriends(request.getServletPath()));

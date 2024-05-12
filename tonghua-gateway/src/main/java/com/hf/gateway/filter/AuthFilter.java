@@ -12,8 +12,10 @@ import com.hf.core.utils.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
@@ -47,6 +49,10 @@ public class AuthFilter implements GlobalFilter, Ordered {
             "/auth/code",
             "/auth/check",
             "/auth/register",
+//            "/login",
+//            "/code",
+//            "/check",
+//            "/register",
             "/pay/alipay",
             "/pay/notify",
             "/pay/return"
@@ -63,7 +69,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         return Mono.just(exchange)
                 .map(ServerWebExchange::getRequest)
                 .flatMap(serverHttpRequest -> {
-                    String path = serverHttpRequest.getPath().toString();
+                    String path = serverHttpRequest.getPath().value();
                     logger.info("请求的路径path: {}", path);
                     if (path.startsWith(SOCKJS_PREFIX)) {
                         logger.info("path: {}, 请求为sockjs, 无需校验身份", path);
@@ -120,3 +126,4 @@ public class AuthFilter implements GlobalFilter, Ordered {
         return response.writeWith(Flux.just(buffer));
     }
 }
+
