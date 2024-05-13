@@ -31,6 +31,15 @@
           username, bio, gtm_create, gtm_modify, deleted
     </sql>
 
+    <select id="selectUsernameAndAvatar" resultType="java.util.Map">
+        <![CDATA[
+        select avatar_url, username
+        from user
+        where deleted <> 1
+            and id = #{userId}
+        ]]>
+    </select>
+
     <select id="selectByEmailUser" resultType="com.hf.core.model.entity.user.User">
         <![CDATA[
         select id, a_id, phone_number, email, salt, password, avatar_url,

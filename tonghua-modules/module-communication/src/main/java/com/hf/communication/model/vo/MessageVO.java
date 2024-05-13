@@ -8,7 +8,11 @@ public class MessageVO {
 
     private String content;
 
-    private String sender;
+    private String senderId;
+
+    private String senderName;
+
+    private String avatarUrl;
 
     private Long messageTime;
 
@@ -22,16 +26,28 @@ public class MessageVO {
         this.content = content;
     }
 
-    public String getSender() {
-        return sender;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
-    public long getMessageTime() {
-        return messageTime;
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 
     public void setMessageTime(long messageTime) {

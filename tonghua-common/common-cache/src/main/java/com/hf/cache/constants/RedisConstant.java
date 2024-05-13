@@ -38,6 +38,10 @@ public interface RedisConstant {
 
     public static final String USER_MESSAGE_LIST_KEY = "tonghua:message:list:";
 
+    public static final String USER_BASE_INFO_KEY = "tonghua:user:base:";
+
+    public static final Long USER_BASE_INFO_TTL = 30L;
+
     public static final Long USER_MESSAGE_LIST_TTL = 10L;
 
 

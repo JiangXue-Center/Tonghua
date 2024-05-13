@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 public interface UserService {
+
+    Map<String, String> selectUserBaseInfo(String userId);
+
     User selectUserByEmail(String email);
 
     User selectUserByPhone(String phone);

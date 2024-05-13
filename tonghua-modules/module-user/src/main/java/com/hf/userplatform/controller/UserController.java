@@ -20,6 +20,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/base/{userId}")
+    public Map<String, String> getUserBaseInfoByUserId(@PathVariable("userId") String userId) {
+        return userService.selectUserBaseInfo(userId);
+    }
+
     @GetMapping("/email/{email}")
     public User getInfoByEmail(@PathVariable("email") String email) {
         User user = userService.selectUserByEmail(email);

@@ -29,6 +29,11 @@ public class ChatController {
     private ChatService chatService;
 
 
+    /**
+     *
+     * @param message 消息体对象
+     * @description 发送消息给用户的接口
+     */
     @MessageMapping("/chat")
     public void sendMessage(@Payload Message message) {
         logger.info("chat入参 message {}", message);

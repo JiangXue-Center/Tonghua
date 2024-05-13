@@ -6,6 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @FeignClient(contextId = "remoteUserService", value = "module-userplatform")
@@ -22,5 +23,8 @@ public interface RemoteUserService {
 
     @PostMapping("/user/simpleList")
     public List<SimpleUser> selectSimpleUsers(@RequestBody Set<String> userIds);
+
+    @GetMapping("/user/base/{userId}")
+    public Map<String, String> getUserBaseInfoByUserId(@PathVariable("userId") String userId);
 
 }

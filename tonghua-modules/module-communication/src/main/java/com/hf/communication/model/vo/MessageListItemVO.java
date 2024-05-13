@@ -1,5 +1,7 @@
 package com.hf.communication.model.vo;
 
+import com.hf.communication.enums.MessageType;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,7 +15,9 @@ public class MessageListItemVO implements Serializable {
 
     private Integer unReadMessageNumber;
 
-    private MessageVO lastMessage;
+    private String lastMessageContent;
+
+    private MessageType messageType;
 
     private Date lastMessageTime;
 
@@ -49,12 +53,20 @@ public class MessageListItemVO implements Serializable {
         this.unReadMessageNumber = notReadMessageNumber;
     }
 
-    public MessageVO getLastMessage() {
-        return lastMessage;
+    public MessageType getMessageType() {
+        return messageType;
     }
 
-    public void setLastMessage(MessageVO lastMessage) {
-        this.lastMessage = lastMessage;
+    public void setLastMessageContent(String lastMessageContent) {
+        this.lastMessageContent = lastMessageContent;
+    }
+
+    public String getLastMessageContent() {
+        return lastMessageContent;
+    }
+
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
     }
 
     public Date getLastMessageTime() {

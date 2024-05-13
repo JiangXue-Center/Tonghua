@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 import static com.hf.cache.constants.RedisConstant.*;
+import static com.hf.core.enums.ExceptionEnums.PHONE_FORMAT_ERROR;
 import static com.hf.core.enums.ExceptionEnums.USER_EXIST_ERROR;
 import static com.hf.userplatform.constants.Constant.BIND_SUCCESS;
 
@@ -36,6 +37,14 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MinIOService minIOService;
+
+    @Override
+    public Map<String, String> selectUserBaseInfo(String userId) {
+        if (StrUtil.hasBlank(userId)) {
+            throw new ParamException("用户Id为空");
+        }
+        return userMapper.selectUsernameAndAvatar(userId);
+    }
 
 
     @Override

@@ -2,6 +2,7 @@ package com.hf.communication.controller;
 
 import com.hf.communication.model.entity.ChatMessage;
 import com.hf.communication.model.vo.MessageListItemVO;
+import com.hf.communication.model.vo.MessageVO;
 import com.hf.communication.service.ChatService;
 import com.hf.core.model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,21 @@ public class MessageController {
     @Autowired
     private ChatService chatService;
 
+    /**
+     * @description 查询与用户聊天记录的接口
+     */
     @GetMapping("/user/{friendId}/offset/{offset}/size/{size}")
-    public Result<Page<ChatMessage>> selectPrivateMessage(
+    public Result<List<MessageVO>> selectPrivateMessage(
             @PathVariable("friendId") String friendId,
             @PathVariable("offset") Integer offset,
             @PathVariable("size") Integer size) {
-        Page<ChatMessage> privateMessages = chatService.findPrivateMessages(friendId, offset, size);
+        List<MessageVO> privateMessages = chatService.findChatRecord(friendId, offset, size);
         return Result.success(privateMessages);
     }
 
+    /**
+     * @description 查询消息列表的接口
+     */
     @GetMapping("/list")
     public Result<List<MessageListItemVO>> selectMessageList() {
         List<MessageListItemVO> messageList = chatService.findMessageList();
